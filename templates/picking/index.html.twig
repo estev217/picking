@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Picking index{% endblock %}
+
+{% block body %}
+    <h1>Picking index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Num_cmd</th>
+                <th>Imei</th>
+                <th>Gencod</th>
+                <th>Date_heure</th>
+                <th>Num_dossier</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for picking in pickings %}
+            <tr>
+                <td>{{ picking.id }}</td>
+                <td>{{ picking.numCmd }}</td>
+                <td>{{ picking.imei }}</td>
+                <td>{{ picking.gencod }}</td>
+                <td>{{ picking.dateHeure ? picking.dateHeure|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ picking.numDossier }}</td>
+                <td>
+                    <a href="{{ path('picking_show', {'id': picking.id}) }}">show</a>
+                    <a href="{{ path('picking_edit', {'id': picking.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('picking_new') }}">Create new</a>
+{% endblock %}
