@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CommandeLigne{% endblock %}
+
+{% block body %}
+    <h1>CommandeLigne</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ commande_ligne.id }}</td>
+                <th>Num commande</th>
+                <td>{{ commande_ligne.commande.id }}</td>
+                <th>Gencod</th>
+                <td>{{ commande_ligne.gencod }}</td>
+                <th>Quantité</th>
+                <td>{{ commande_ligne.qte }}</td>
+                <th>Date</th>
+                <td>{{ commande_ligne.date|date("d/m/Y H:i:s") }}</td>
+                <th>Encours</th>
+                <td>{{ commande_ligne.encours ? "1" : "0" }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('commande_ligne_index') }}">back to list</a>
+
+    <a href="{{ path('commande_ligne_edit', {'id': commande_ligne.id}) }}">edit</a>
+
+    {{ include('commande_ligne/_delete_form.html.twig') }}
+{% endblock %}

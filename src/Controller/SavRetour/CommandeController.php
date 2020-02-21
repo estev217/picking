@@ -39,7 +39,7 @@ class CommandeController extends AbstractController
             $entityManager->persist($commande);
             $entityManager->flush();
 
-            return $this->redirectToRoute('sav_retour_commande_index');
+            return $this->redirectToRoute('commande_index');
         }
 
         return $this->render('commande/new.html.twig', [
@@ -69,7 +69,7 @@ class CommandeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('sav_retour_commande_index');
+            return $this->redirectToRoute('commande_index');
         }
 
         return $this->render('commande/edit.html.twig', [

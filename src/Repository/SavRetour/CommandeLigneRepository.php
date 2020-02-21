@@ -3,8 +3,11 @@
 namespace App\Repository\SavRetour;
 
 use App\Entity\SavRetour\CommandeLigne;
+use App\Entity\SavRetour\CommandeLigneSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method CommandeLigne|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +20,37 @@ class CommandeLigneRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CommandeLigne::class);
+    }
+
+    private function findVisibleQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.date', 'DESC');
+    }
+
+    public function findAllVisibleQuery(CommandeLigneSearch $search): Query
+    {
+        $query = $this->findVisibleQuery();
+
+        if ($search->getCommande()){
+            $query = $query
+                ->innerJoin('c.commande', 'co')
+                ->addSelect('co')
+                ->andWhere('co.id = :commandeId')
+                ->setParameter('commandeId', $search->getCommande()->getId());
+        }
+        if ($search->getGencod()){
+            $query = $query
+                ->andWhere('c.gencod LIKE :val')
+                ->setParameter('val', '%' . $search->getGencod() . '%');
+        }
+        if ($search->getEncours()){
+            $query = $query
+                ->andWhere('c.encours LIKE :val')
+                ->setParameter('val', $search->getEncours());
+        }
+
+        return $query->getQuery();
     }
 
     // /**

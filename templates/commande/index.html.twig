@@ -9,13 +9,26 @@
         <thead>
             <tr>
                 <th>Id</th>
-
+                <th>Demandeur</th>
+                <th>Magasin cédant</th>
+                <th>Destination</th>
+                <th>Date</th>
+                <th>Solde</th>
             </tr>
         </thead>
         <tbody>
         {% for commande in commandes %}
             <tr>
                 <td>{{ commande.id }}</td>
+                <td>{{ commande.demandeur }}</td>
+                <td>{{ commande.magasinCedant }}</td>
+                <td>{{ commande.destination }}</td>
+                <td>{{ commande.date|date("d/m/Y H:i:s") }}</td>
+                <td>{{ commande.solde ? "soldé" : "non soldé" }}</td>
+                <td>
+                    <a href="{{ path('commande_show', {'id': commande.id}) }}">show</a>
+                    <a href="{{ path('commande_edit', {'id': commande.id}) }}">edit</a>
+                </td>
         {% else %}
             <tr>
                 <td colspan="7">no records found</td>

@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Picking{% endblock %}
+{% block title %}Edit Commande{% endblock %}
 
 {% block body %}
-    <h1>Edit Picking</h1>
+    <h1>Edit Commande</h1>
 
-    {{ include('picking/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('commande/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('picking_index') }}">back to list</a>
+    <a href="{{ path('commande_index') }}">back to list</a>
 
-    {{ include('picking/_delete_form.html.twig') }}
+    {{ include('commande/_delete_form.html.twig') }}
 {% endblock %}

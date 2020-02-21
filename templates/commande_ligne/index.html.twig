@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CommandeLigne index{% endblock %}
+
+{% block body %}
+    <h1>CommandeLigne index</h1>
+
+    {{ form_start(form) }}
+    <div class="d-flex container">
+        <div>{{ form_widget(form.gencod) }}</div>
+        <div>{{ form_widget(form.commande) }}</div>
+        <div>{{ form_widget(form.encours) }}</div>
+        <div><button class="btn btn-outline-dark">Search</button></div>
+    </div>
+    {{ form_end(form) }}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Num commande</th>
+                <th>Gencod</th>
+                <th>Quantité</th>
+                <th>Encours</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commande_ligne in commande_lignes %}
+            <tr>
+                <td>{{ commande_ligne.id }}</td>
+                <td>{{ commande_ligne.commande.id }}</td>
+                <td>{{ commande_ligne.gencod }}</td>
+                <td>{{ commande_ligne.qte }}</td>
+                <td>{{ commande_ligne.encours ? "1" : "0" }}</td>
+                <td>{{ commande_ligne.date|date("d/m/Y H:i:s") }}</td>
+                <td>
+                    <a href="{{ path('commande_ligne_show', {'id': commande_ligne.id}) }}">show</a>
+                    <a href="{{ path('commande_ligne_edit', {'id': commande_ligne.id}) }}">edit</a>
+                </td>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination d-flex justify-content-center fixed-bottom">
+        {{ knp_pagination_render(commande_lignes) }}
+    </div>
+
+    <a href="{{ path('commande_ligne_new') }}">Create new</a>
+{% endblock %}
