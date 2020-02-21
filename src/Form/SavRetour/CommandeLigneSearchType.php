@@ -27,8 +27,8 @@ class CommandeLigneSearchType extends AbstractType
             ])
             ->add('encours', ChoiceType::class, [
                 'label' => 'Encours',
+                'required' => false,
                 'choices' => [
-                    'tous' => null,
                     'encours' => true,
                     'pas d\'encours' => false,
                 ]

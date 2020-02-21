@@ -44,7 +44,15 @@ class CommandeLigneRepository extends ServiceEntityRepository
                 ->andWhere('c.gencod LIKE :val')
                 ->setParameter('val', '%' . $search->getGencod() . '%');
         }
-        if ($search->getEncours()){
+        if ($search->getEncours() === true){
+            $query = $query
+                ->andWhere('c.encours = :val')
+                ->setParameter('val', $search->getEncours());
+        } elseif ($search->getEncours() === "" ) {
+            $query = $query
+                ->andWhere('true = :val')
+                ->setParameter('val', $search->getEncours());
+        } elseif ($search->getEncours() === false) {
             $query = $query
                 ->andWhere('c.encours = :val')
                 ->setParameter('val', $search->getEncours());
