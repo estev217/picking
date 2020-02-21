@@ -39,8 +39,7 @@ class CommandeLigneSearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'placeholder' => 'Num Commande',
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -46,7 +46,7 @@ class CommandeLigneRepository extends ServiceEntityRepository
         }
         if ($search->getEncours()){
             $query = $query
-                ->andWhere('c.encours LIKE :val')
+                ->andWhere('c.encours = :val')
                 ->setParameter('val', $search->getEncours());
         }
 
