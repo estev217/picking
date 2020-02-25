@@ -1,0 +1,26 @@
+body {
+    background-color: $darkBlue;
+    font-family: $mainFont;
+}
+
+.navbar {
+    background-color: #e0e00b;
+}
+
+.login {
+    background-color: $white;
+    width: 40vw;
+    height: 40vh;
+    position: absolute;
+    top: 30vh;
+    left: 30vw;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: round(3px);
+    box-shadow: 0px 0px 5px 5px $white;
+}
+
+.btn-primary {
+    background-color: $lightBlue;
+    border-color: $lightBlue;
+}

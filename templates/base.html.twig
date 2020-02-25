@@ -10,9 +10,10 @@
     </head>
     <body>
     <header>
-        {% include "navbar.html.twig" %}
+        {#{% include "navbar.html.twig" %}#}
         {% block header %}{% endblock %}
     </header>
+        {% block main %}{% endblock %}
         {% block body %}{% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}

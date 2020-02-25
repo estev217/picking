@@ -7,6 +7,10 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
+    .configureRuntimeEnvironment('dev-server', {
+        keepPublicPath: true,
+        https: true,
+    })
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
@@ -56,6 +60,18 @@ Encore
     // enables Sass/SCSS support
     .enableSassLoader()
 
+    // Transformation du css pour l'ensemble des navigateurs
+    .enablePostCssLoader((options) => {
+        options.config = {
+            path: 'config/postcss.config.js'
+        };
+    });
+
+    const config = Encore.getWebpackConfig();
+    config.watchOptions = {
+        poll: true,
+    };
+
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
 
@@ -69,6 +85,6 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
-;
 
-module.exports = Encore.getWebpackConfig();
+
+module.exports = config;
