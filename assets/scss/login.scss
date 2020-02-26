@@ -1,0 +1,33 @@
+.login {
+    background-color: $white;
+    width: 50vw;
+    position: absolute;
+    top: 20vh;
+    left: 25vw;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: round(3px);
+    box-shadow: 0 0 5px 5px $white;
+}
+
+.logo {
+    width: 15vw;
+}
+
+.loginLabel {
+    color: $darkGrey;
+}
+
+.loginTitle {
+    color: $lightBlue;
+    text-shadow: 1px 1px 1px rgba(0, 157, 204, 0.27);
+    font-size: 40px;
+    margin-bottom: 0;
+}
+
+.access {
+    &:hover {
+        background-color: $lightBlue;
+        border-color: $lightBlue;
+    }
+}

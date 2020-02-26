@@ -1,0 +1,45 @@
+.home {
+    background-color: $white;
+    width: 50vw;
+    position: absolute;
+    top: 20vh;
+    left: 25vw;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: round(3px);
+    box-shadow: 0 0 5px 5px $white;
+}
+
+.homeTitle {
+    color: $lightBlue;
+    text-shadow: 1px 1px 1px rgba(0, 157, 204, 0.27);
+    font-size: 40px;
+}
+
+a {
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.homeButton {
+    font-size: 20px;
+
+}
+
+.logoutButton {
+    color: $darkBlue;
+    &:hover {
+    color: $lightBlue;
+    }
+}
+
+.square {
+    background-color: $lightBlue;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-radius: round(3px);
+    &:hover {
+        background-color: $darkBlue;
+}
+}

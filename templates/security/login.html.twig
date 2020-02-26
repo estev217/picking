@@ -3,11 +3,11 @@
 {% block main %}
     <div class="container-fluid">
         <div class="login d-flex flex-column justify-content-around">
-            <div class="text-center d-flex flex-row justify-content-center align-items-center">
-                <img src="https://www.n9ws.com/images/upload/bouygues-040118110201.png" class="logo" alt="logo">
-                <p class="loginTitle">picking</p>
+            <div class="text-center d-flex flex-column justify-content-center align-items-center">
+                <p class="loginTitle border-bottom">Picking SAV Retour</p>
+                <img src="https://www.n9ws.com/images/upload/bouygues-040118110201.png" class="logo" alt="">
             </div>
-            <form method="post">
+            <form method="post" class="mt-3">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
@@ -39,7 +39,7 @@
                     </div>
                 #}
                 <div class="text-center">
-                    <button class="btn btn-primary my-4" type="submit">
+                    <button class="access btn btn-primary my-4" type="submit">
                         Me connecter
                     </button>
                 </div>
