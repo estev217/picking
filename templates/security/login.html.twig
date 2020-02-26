@@ -3,8 +3,9 @@
 {% block main %}
     <div class="container-fluid">
         <div class="login d-flex flex-column justify-content-around">
-            <div class="text-center">
-            <img src="" class="logo" alt="logo">
+            <div class="text-center d-flex flex-row justify-content-center align-items-center">
+                <img src="https://www.n9ws.com/images/upload/bouygues-040118110201.png" class="logo" alt="logo">
+                <p class="loginTitle">picking</p>
             </div>
             <form method="post">
                 {% if error %}
@@ -17,12 +18,12 @@
                     </div>
                 {% endif %}
                 <div class="text-center">
-                    <label for="inputOperator" class="loginLabel">Identifiant</label>
+                    <label for="inputOperator" class="loginLabel"><i class="fas fa-user mr-1"></i>Identifiant</label>
                     <input type="text" value="{{ last_username }}" name="username" id="inputOperator" class="form-control"
                            required autofocus>
                 </div>
                 <div class="text-center">
-                    <label for="inputPassword" class="loginLabel mt-2">Mot de passe</label>
+                    <label for="inputPassword" class="loginLabel mt-3"><i class="fas fa-key mr-1"></i>Mot de passe</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" required>
 
                     <input type="hidden" name="_csrf_token"
@@ -38,7 +39,7 @@
                     </div>
                 #}
                 <div class="text-center">
-                    <button class="btn btn-primary mt-4" type="submit">
+                    <button class="btn btn-primary my-4" type="submit">
                         Me connecter
                     </button>
                 </div>
