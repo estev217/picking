@@ -36,8 +36,8 @@ class CommandeLigneRepository extends ServiceEntityRepository
             $query = $query
                 ->innerJoin('c.commande', 'co')
                 ->addSelect('co')
-                ->andWhere('co.id = :commandeId')
-                ->setParameter('commandeId', $search->getCommande()->getId());
+                ->andWhere('co.num_commande = :numCommande')
+                ->setParameter('numCommande', $search->getCommande()->getNumCommande());
         }
         if ($search->getGencod()){
             $query = $query

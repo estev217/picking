@@ -35,7 +35,7 @@ class CommandeLigneSearchType extends AbstractType
             ])
             ->add('commande', EntityType::class, [
                 'class' => Commande::class,
-                'choice_label' => 'id',
+                'choice_label' => 'num_commande',
                 'required' => false,
                 'label' => false,
                 'placeholder' => 'Num Commande',

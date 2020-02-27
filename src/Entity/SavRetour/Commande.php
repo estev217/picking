@@ -50,6 +50,11 @@ class Commande
      */
     private $solde = false;
 
+    /**
+     * @ORM\Column(type="string", length=35, unique=true)
+     */
+    private $num_commande;
+
     public function __construct()
     {
         $this->num_cmd = new ArrayCollection();
@@ -148,6 +153,18 @@ class Commande
     public function setSolde(bool $solde): self
     {
         $this->solde = $solde;
+
+        return $this;
+    }
+
+    public function getNumCommande(): ?string
+    {
+        return $this->num_commande;
+    }
+
+    public function setNumCommande(string $num_commande): self
+    {
+        $this->num_commande = $num_commande;
 
         return $this;
     }

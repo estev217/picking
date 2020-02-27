@@ -29,7 +29,7 @@
         {% for commande_ligne in commande_lignes %}
             <tr>
                 <td>{{ commande_ligne.id }}</td>
-                <td>{{ commande_ligne.commande.id }}</td>
+                <td>{{ commande_ligne.commande.numCommande }}</td>
                 <td>{{ commande_ligne.gencod }}</td>
                 <td>{{ commande_ligne.qte }}</td>
                 <td>{{ commande_ligne.encours ? "1" : "0" }}</td>
