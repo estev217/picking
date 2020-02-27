@@ -1,41 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commande index{% endblock %}
+{% block title %}Nouvelle commande{% endblock %}
 
 {% block body %}
-    <h1>Commande index</h1>
+    <div class="container-fluid">
+        <div class="index d-flex flex-column">
+            <div class="d-flex align-items-center justify-content-around">
+                <p class="indexTitle text-center border-bottom">Création / modification commandes de transfert SAV Retour</p>
+            </div>
+            <div class="my-3">
+            <a href="{{ path('commande_new') }}">Créer une nouvelle commande <i class="fas fa-plus"></i></a>
+            </div>
+            <div class="card">
+            <div class="card-header d-flex flex-row justify-content-around">
+                <div class="col-2 px-0 text-center align-self-center"><b>Numéro commande</b></div>
+                <div class="col-2 px-0 text-center align-self-center"><b>Demandeur</b></div>
+                <div class="col-2 px-0 text-center align-self-center"><b>Magasin cédant</b></div>
+                <div class="col-2 px-0 text-center align-self-center"><b>Destination</b></div>
+                <div class="col-2 px-0 text-center align-self-center"><b>Date</b></div>
+                <div class="col-1 px-0 text-center align-self-center"><b>Solde</b></div>
+                <div class="col-1 px-0 text-center align-self-center"><b>Action</b></div>
+            </div>
+            </div>
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    {% for commande in commandes %}
+                    <div class="card-header d-flex flex-row justify-content-around" id="heading{{ loop.index }}">
+                        <button class="col-2 btn btn-link collapsed py-0 dropdown-toggle" type="button" data-toggle="collapse" data-target="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}">
+                            {{ commande.numCommande }}
+                        </button>
+                        <div class="col-2 text-center align-self-center">{{ commande.demandeur }}</div>
+                        <div class="col-2 text-center align-self-center">{{ commande.magasinCedant }}</div>
+                        <div class="col-2 text-center align-self-center">{{ commande.destination }}</div>
+                        <div class="col-2 text-center align-self-center">{{ commande.date|date("d/m/Y H:i") }}</div>
+                        {% if commande.solde %}
+                            <div class="col-1 text-center align-self-center"><i class="far fa-check-circle"></i></div>
+                        {% else %}
+                            <div class="col-1 text-center align-self-center"><i class="far fa-circle"></i></div>
+                        {% endif %}
+                        <div class="col-1 text-center align-self-center">
+                        <a href="{{ path('commande_edit', {'id': commande.id}) }}">edit</a>
+                        </div>
+                    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Demandeur</th>
-                <th>Magasin cédant</th>
-                <th>Destination</th>
-                <th>Date</th>
-                <th>Solde</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for commande in commandes %}
-            <tr>
-                <td>{{ commande.id }}</td>
-                <td>{{ commande.demandeur }}</td>
-                <td>{{ commande.magasinCedant }}</td>
-                <td>{{ commande.destination }}</td>
-                <td>{{ commande.date|date("d/m/Y H:i:s") }}</td>
-                <td>{{ commande.solde ? "soldé" : "non soldé" }}</td>
-                <td>
-                    <a href="{{ path('commande_show', {'id': commande.id}) }}">show</a>
-                    <a href="{{ path('commande_edit', {'id': commande.id}) }}">edit</a>
-                </td>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('commande_new') }}">Create new</a>
+                    <div id="collapse{{ loop.index }}" class="collapse" aria-labelledby="heading{{ loop.index }}" data-parent="#accordionExample">
+                        <div class="card-body d-flex flex-row justify-content-around">
+                            <div class="text-center align-self-center"><b>Gencod:</b> {{ commande.magasinCedant }}</div>
+                            <div class="text-center align-self-center"><b>Quantité:</b> {{ commande.destination }}</div>
+                            <div class="text-center align-self-center"><b>Date:</b> {{ commande.date|date("d/m/Y H:i") }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-center mt-4">
+                <a href="{{ path('home') }}" class="navigationButton mx-2" title="Menu principal">
+                    <i class="fas fa-home fa-2x"></i>
+                </a>
+                <a href="{{ path('app_logout') }}" class="navigationButton mx-2" title="Déconnexion">
+                    <i class="fas fa-power-off fa-2x"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
