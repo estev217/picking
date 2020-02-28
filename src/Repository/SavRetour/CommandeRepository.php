@@ -22,7 +22,7 @@ class CommandeRepository extends ServiceEntityRepository
     public function findAllWithNumCmd()
     {
         $qb = $this->createQueryBuilder('c')
-            ->innerJoin('c.num_commande', 'cn' )
+            ->innerJoin('c.num_cmd', 'cn' )
             ->addSelect('cn')
             ->getQuery();
 
