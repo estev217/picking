@@ -61,6 +61,18 @@ class CommandeLigneRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
+    public function findAllWithCmd()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->innerJoin('c.commande', 'cn' )
+            ->addSelect('cn')
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
+
+
     // /**
     //  * @return CommandeLigne[] Returns an array of CommandeLigne objects
     //  */

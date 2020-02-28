@@ -24,29 +24,31 @@
             </div>
             <div class="accordion" id="accordionExample">
                 <div class="card">
-                    {% for commande in commandes %}
+                    {{ dump(commandelignes) }}
+                    {% for commande in commandelignes %}
                     <div class="card-header d-flex flex-row justify-content-around" id="heading{{ loop.index }}">
                         <button class="col-2 btn btn-link collapsed py-0 dropdown-toggle" type="button" data-toggle="collapse" data-target="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}">
-                            {{ commande.numCommande }}
+                            {{ commande.commande.numCommande }}
+
                         </button>
-                        <div class="col-2 text-center align-self-center">{{ commande.demandeur }}</div>
-                        <div class="col-2 text-center align-self-center">{{ commande.magasinCedant }}</div>
-                        <div class="col-2 text-center align-self-center">{{ commande.destination }}</div>
-                        <div class="col-2 text-center align-self-center">{{ commande.date|date("d/m/Y H:i") }}</div>
-                        {% if commande.solde %}
+                        <div class="col-2 text-center align-self-center">{{ commande.commande.demandeur }}</div>
+                        <div class="col-2 text-center align-self-center">{{ commande.commande.magasinCedant }}</div>
+                        <div class="col-2 text-center align-self-center">{{ commande.commande.destination }}</div>
+                        <div class="col-2 text-center align-self-center">{{ commande.commande.date|date("d/m/Y H:i") }}</div>
+                        {% if commande.commande.solde %}
                             <div class="col-1 text-center align-self-center"><i class="far fa-check-circle"></i></div>
                         {% else %}
                             <div class="col-1 text-center align-self-center"><i class="far fa-circle"></i></div>
                         {% endif %}
                         <div class="col-1 text-center align-self-center">
-                        <a href="{{ path('commande_edit', {'id': commande.id}) }}">edit</a>
+                        <a href="{{ path('commande_edit', {'id': commande.commande.id}) }}">edit</a>
                         </div>
                     </div>
 
                     <div id="collapse{{ loop.index }}" class="collapse" aria-labelledby="heading{{ loop.index }}" data-parent="#accordionExample">
                         <div class="card-body d-flex flex-row justify-content-around">
-                            <div class="text-center align-self-center"><b>Gencod:</b> {{ commande.magasinCedant }}</div>
-                            <div class="text-center align-self-center"><b>Quantité:</b> {{ commande.destination }}</div>
+                            <div class="text-center align-self-center"><b>Gencod:</b> {{ commande.gencod }} </div>
+                            <div class="text-center align-self-center"><b>Quantité:</b> {{ commande.qte }} </div>
                             <div class="text-center align-self-center"><b>Date:</b> {{ commande.date|date("d/m/Y H:i") }}</div>
                         </div>
                     </div>

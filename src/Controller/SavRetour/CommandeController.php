@@ -4,6 +4,7 @@ namespace App\Controller\SavRetour;
 
 use App\Entity\SavRetour\Commande;
 use App\Form\SavRetour\CommandeType;
+use App\Repository\SavRetour\CommandeLigneRepository;
 use App\Repository\SavRetour\CommandeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,10 +19,11 @@ class CommandeController extends AbstractController
     /**
      * @Route("/", name="commande_index", methods={"GET"})
      */
-    public function index(CommandeRepository $commandeRepository): Response
+    public function index(CommandeRepository $commandeRepository, CommandeLigneRepository $commandeLigneRepository): Response
     {
         return $this->render('commande/index.html.twig', [
             'commandes' => $commandeRepository->findAll(),
+            'commandelignes' => $commandeLigneRepository->findAllWithCmd(),
         ]);
     }
 

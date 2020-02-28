@@ -19,6 +19,16 @@ class CommandeRepository extends ServiceEntityRepository
         parent::__construct($registry, Commande::class);
     }
 
+    public function findAllWithNumCmd()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->innerJoin('c.num_commande', 'cn' )
+            ->addSelect('cn')
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
     // /**
     //  * @return Commande[] Returns an array of Commande objects
     //  */
