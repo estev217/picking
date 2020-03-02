@@ -20,3 +20,9 @@
 tr {
     text-align: center;
 }
+
+.card-body{
+    &:hover {
+        background-color: $lightBlue;
+    }
+}

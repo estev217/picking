@@ -42,6 +42,8 @@ class CommandeLigneController extends AbstractController
 
     /**
      * @Route("/new", name="commande_ligne_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -75,6 +77,9 @@ class CommandeLigneController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="commande_ligne_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param CommandeLigne $commandeLigne
+     * @return Response
      */
     public function edit(Request $request, CommandeLigne $commandeLigne): Response
     {

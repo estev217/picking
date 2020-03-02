@@ -32,27 +32,28 @@
                         <div class="col-2 text-center align-self-center">{{ commande.demandeur }}</div>
                         <div class="col-2 text-center align-self-center">{{ commande.magasinCedant }}</div>
                         <div class="col-2 text-center align-self-center">{{ commande.destination }}</div>
-                        <div class="col-2 text-center align-self-center">{{ commande.date|date("d/m/Y H:i") }}</div>
+                        <div class="col-2 text-center align-self-center">{{ commande.date|date("d/m/Y") }}</div>
                         {% if commande.solde %}
                             <div class="col-1 text-center align-self-center"><i class="far fa-check-circle"></i></div>
                         {% else %}
                             <div class="col-1 text-center align-self-center"><i class="far fa-circle"></i></div>
                         {% endif %}
                         <div class="col-1 text-center align-self-center">
-                        <a href="{{ path('commande_edit', {'id': commande.id}) }}">edit</a>
+                        <a href="{{ path('commande_edit', {'id': commande.id}) }}">Modifier</a>
                         </div>
                     </div>
 
                     <div id="collapse{{ loop.index }}" class="collapse" aria-labelledby="heading{{ loop.index }}" data-parent="#accordionExample">
                         {% for commandeligne in commandelignes %}
                         {%  if commandeligne.commande.id == commande.id %}
-                        <div class="card-body d-flex flex-row justify-content-around">
-
+                            <a href="{{ path('commande_ligne_edit', {'id': commandeligne.id}) }}">
+                        <div class="card-body d-flex flex-row justify-content-around border-bottom">
                             <div class="col-4 text-center align-self-center"><b>Gencod:</b> {{ commandeligne.gencod }} </div>
                             <div class="col-4 text-center align-self-center"><b>Quantité:</b> {{ commandeligne.qte }} </div>
-                            <div class="col-4 text-center align-self-center"><b>Date:</b> {{ commandeligne.date|date("d/m/Y H:i") }}</div>
-
+                            <div class="col-4 text-center align-self-center"><b>Date:</b> {{ commandeligne.date|date("d/m/Y H:i:s") }}</div>
                         </div>
+                            </a>
+                            {% include 'commande/modal_commande_ligne.html.twig' %}
                         {% endif %}
                         {% endfor %}
                     </div>
