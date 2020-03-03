@@ -26,6 +26,8 @@
 }
 
 .access {
+    background-color: $darkBlue;
+    border-color: $darkBlue;
     &:hover {
         background-color: $lightBlue;
         border-color: $lightBlue;

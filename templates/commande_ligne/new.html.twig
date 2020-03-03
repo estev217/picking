@@ -1,11 +1,64 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}New CommandeLigne{% endblock %}
 
 {% block body %}
-    <h1>Create new CommandeLigne</h1>
+<div class="container-fluid">
+    <div class="edit d-flex flex-column">
+        <div class="d-flex align-items-center justify-content-around">
+            <p class="editTitle text-center border-bottom">Création de commande</p>
+        </div>
+        <form method="post" class="mt-2 d-flex flex-column justify-content-center">
 
-    {{ include('commande_ligne/_form.html.twig') }}
+            <div class="text-dark d-flex flex-column">
+                {{ form_start(form) }}
+                <div class="col-4 align-self-center text-center mt-3">
+                    <p class="mb-0">N° commande</p>
+                    {{ form_row(form.commande) }}
+                </div>
+                <div class="col-4 align-self-center text-center mt-3">
+                    <p class="mb-0">Gencod</p>
+                    {{ form_row(form.gencod) }}
+                </div>
+                <div class="col-4 align-self-center text-center mt-3">
+                    <p class="mb-0">Quantité</p>
+                    {{ form_row(form.qte) }}
+                </div>
+                <div class="align-self-center text-center mt-3">
+                    <p class="text-center mb-0">Encours ?</p>
+                    {{ form_row(form.encours) }}
+                </div>
+                <div class="align-self-center mt-3">
+                    <p class="text-center mb-0">Date</p>
+                    <div class="d-flex flex-row justify-content-between">
+                        <div>
+                            {{ form_widget(form.date.date.day) }}
+                        </div>
+                        <div>
+                            {{ form_widget(form.date.date.month) }}
+                        </div>
+                        <div>
+                            {{ form_widget(form.date.date.year) }}
+                        </div>
+                        <div>
+                            {{ form_widget(form.date.time.hour) }}
+                        </div>
+                        <div>
+                            {{ form_widget(form.date.time.minute) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="register mt-3 mb-4 btn btn-lg">Enregistrer les données</button>
+            {{ form_end(form) }}
+        </form>
 
-    <a href="{{ path('commande_ligne_index') }}">back to list</a>
+        <div class="mt-4">
+            <a href="{{ path('commande_index') }}"><button class="back btn btn-lg text-white">Retour</button></a>
+        </div>
+
+    </div>
+</div>
 {% endblock %}

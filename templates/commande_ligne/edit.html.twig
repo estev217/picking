@@ -1,13 +1,70 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit CommandeLigne{% endblock %}
 
 {% block body %}
-    <h1>Edit CommandeLigne</h1>
+<div class="container-fluid">
+    <div class="edit d-flex flex-column">
+        <div class="d-flex align-items-center justify-content-around">
+            <p class="editTitle text-center border-bottom">Modification commande n°{{ commande_ligne.commande.numCommande }}</p>
+        </div>
+        <form method="post" class="mt-2 d-flex flex-column justify-content-center">
 
-    {{ include('commande_ligne/_form.html.twig', {'button_label': 'Update'}) }}
+            <div class="text-dark d-flex flex-column">
+                {{ form_start(form) }}
+                <div class="col-5 align-self-center mt-3">
+                    <p class="text-center mb-0">N° commande</p>
+                    {{ form_row(form.commande, {'disabled': true}) }}
+                </div>
+                <div class="d-flex flex-row justify-content-around">
+                    <div class="col-6 align-self-center text-center mt-3">
+                        <p class="mb-0">Gencod</p>
+                        {{ form_row(form.gencod) }}
+                    </div>
+                    <div class="col-3 align-self-center mt-3">
+                        <p class="text-center mb-0">Quantité</p>
+                        {{ form_row(form.qte) }}
+                    </div>
+                    <div class="col-3 align-self-center mt-3">
+                        <p class="text-center mb-0">Encours</p>
+                        {{ form_row(form.encours) }}
+                    </div>
+                </div>
+                <div class="col-12 align-self-center text-center mt-3 mb-3">
+                    <p class="text-center mb-0">Date</p>
+                    <div class="d-flex flex-row justify-content-between">
+                        <div>
+                            {{ form_widget(form.date.date.day) }}
+                        </div>
+                        <div>
+                            {{ form_widget(form.date.date.month) }}
+                        </div>
+                        <div>
+                            {{ form_widget(form.date.date.year) }}
+                        </div>
+                        <div>
+                            {{ form_widget(form.date.time.hour) }}
+                        </div>
+                        <div>
+                            {{ form_widget(form.date.time.minute) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="register mt-3 mb-4 btn btn-lg">Enregistrer les modifications</button>
+            {{ form_end(form) }}
+        </form>
+        <form method="post" class="d-flex flex-column justify-content-center" action="{{ path('commande_ligne_delete', {'id': commande_ligne.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cet élément?');">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commande_ligne.id) }}">
+            <button class="deleter btn btn-lg btn-outline-danger">Supprimer l'élément</button>
+        </form>
+        <div class="mt-4">
+            <a href="{{ path('commande_index') }}"><button class="back btn btn-lg text-white">Retour</button></a>
+        </div>
 
-    <a href="{{ path('commande_ligne_index') }}">back to list</a>
-
-    {{ include('commande_ligne/_delete_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}

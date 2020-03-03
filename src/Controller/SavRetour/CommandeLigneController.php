@@ -56,7 +56,7 @@ class CommandeLigneController extends AbstractController
             $entityManager->persist($commandeLigne);
             $entityManager->flush();
 
-            return $this->redirectToRoute('commande_ligne_index');
+            return $this->redirectToRoute('commande_index');
         }
 
         return $this->render('commande_ligne/new.html.twig', [
@@ -89,7 +89,7 @@ class CommandeLigneController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('commande_ligne_index');
+            return $this->redirectToRoute('commande_index');
         }
 
         return $this->render('commande_ligne/edit.html.twig', [
@@ -109,6 +109,6 @@ class CommandeLigneController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('commande_ligne_index');
+        return $this->redirectToRoute('commande_index');
     }
 }

@@ -39,22 +39,38 @@
                             <div class="col-1 text-center align-self-center"><i class="far fa-circle"></i></div>
                         {% endif %}
                         <div class="col-1 text-center align-self-center">
-                        <a href="{{ path('commande_edit', {'id': commande.id}) }}">Modifier</a>
+                            <a href="{{ path('commande_edit', {'id': commande.id}) }}" title="Modifier">
+                                <i class="fas fa-edit editButton"></i>
+                            </a>
+                            <form method="post" action="{{ path('commande_delete', {'id': commande.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cette commande?');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commande.id) }}">
+                                <button class="btn p-0"><i class="fas fa-trash-alt deleteButton" title="Supprimer"></i></button>
+                            </form>
                         </div>
                     </div>
 
                     <div id="collapse{{ loop.index }}" class="collapse" aria-labelledby="heading{{ loop.index }}" data-parent="#accordionExample">
                         {% for commandeligne in commandelignes %}
                         {%  if commandeligne.commande.id == commande.id %}
-                            <a href="{{ path('commande_ligne_edit', {'id': commandeligne.id}) }}">
-                        <div class="card-body d-flex flex-row justify-content-around border-bottom">
-                            <div class="col-4 text-center align-self-center"><b>Gencod:</b> {{ commandeligne.gencod }} </div>
-                            <div class="col-4 text-center align-self-center"><b>Quantité:</b> {{ commandeligne.qte }} </div>
-                            <div class="col-4 text-center align-self-center"><b>Date:</b> {{ commandeligne.date|date("d/m/Y H:i:s") }}</div>
-                        </div>
+                            <a href="{{ path('commande_ligne_edit', {'id': commandeligne.id}) }}" title="Modifier">
+                                <div class="card-body d-flex flex-row justify-content-around border-bottom">
+                                    <div class="col-4 text-center align-self-center"><b>Gencod:</b> {{ commandeligne.gencod }} </div>
+                                    <div class="col-4 text-center align-self-center"><b>Quantité:</b> {{ commandeligne.qte }} </div>
+                                    <div class="col-4 text-center align-self-center"><b>Date:</b> {{ commandeligne.date|date("d/m/Y H:i:s") }}</div>
+                                </div>
                             </a>
                         {% endif %}
                         {% endfor %}
+                            <div class="d-flex flex-row justify-content-around border-bottom py-1">
+                                <div class="col-6 text-center">
+                                    <a href="{{ path('commande_ligne_new') }}">
+                                    <button type="button" class="adderButton btn btn-lg btn-block" title="Ajouter un article">
+                                        <i class="fas fa-plus"></i> Ajouter un nouvel article
+                                    </button>
+                                    </a>
+                                </div>
+                            </div>
                     </div>
                     {% endfor %}
                 </div>

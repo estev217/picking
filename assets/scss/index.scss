@@ -22,7 +22,32 @@ tr {
 }
 
 .card-body{
+    color: $darkGrey;
     &:hover {
         background-color: $lightBlue;
+    }
+}
+
+.editButton {
+    color: $lightGreen;
+    &:hover {
+        color: $darkGreen;
+    }
+}
+
+.deleteButton {
+    color: $danger;
+    &:hover {
+        color: darken($danger, 20%);
+    }
+}
+
+.adderButton {
+    color: $darkGrey;
+    background-color: $white;
+    border-color: $lightBlue;
+    &:hover {
+        background-color: $lightBlue;
+        border-color: $lightBlue;
     }
 }

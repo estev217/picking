@@ -3,15 +3,22 @@ body {
     font-family: $mainFont;
 }
 
-.btn-primary {
-    background-color: $darkBlue;
-    border-color: $darkBlue;
+.register {
+    background-color: $white;
+    border-color: $darkGreen;
+    color: $darkGreen;
+    &:hover {
+        background-color: $darkGreen;
+        border-color: $darkGreen;
+        color: $white;
+    }
+}
+
+.back {
+    background-color: $lightBlue;
+    border-color: $lightBlue;
     &:hover {
         background-color: $darkBlue;
         border-color: $darkBlue;
     }
-}
-
-.btn-outline-primary {
-
 }

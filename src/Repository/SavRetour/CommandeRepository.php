@@ -27,6 +27,8 @@ class CommandeRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $qb->execute();
+
+
     }
 
     // /**
