@@ -7,6 +7,7 @@ use App\Form\SavRetour\CommandeType;
 use App\Repository\SavRetour\CommandeLigneRepository;
 use App\Repository\SavRetour\CommandeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,6 +29,16 @@ class CommandeController extends AbstractController
     }
 
     /**
+     * @Route("/list", name="commande_list", methods={"GET"})
+     */
+    public function list(CommandeRepository $commandeRepository): Response
+    {
+        return $this->render('commande/list.html.twig', [
+            'commandes' => $commandeRepository->findAllWithNumCmd(),
+        ]);
+    }
+
+    /**
      * @Route("/new", name="commande_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -38,10 +49,12 @@ class CommandeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $numCommande = $form['numCommande']->getData();
             $entityManager->persist($commande);
             $entityManager->flush();
 
-            return $this->redirectToRoute('commande_index');
+            return new RedirectResponse($this->generateUrl('commande_ligne_new', [
+                'numCommande' => $numCommande]));
         }
 
         return $this->render('commande/new.html.twig', [

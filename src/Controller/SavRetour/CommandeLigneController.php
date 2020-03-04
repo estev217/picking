@@ -41,15 +41,25 @@ class CommandeLigneController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="commande_ligne_new", methods={"GET","POST"})
+     * @Route("/new/{numCommande}", name="commande_ligne_new", methods={"GET","POST"})
      * @param Request $request
+     * @param $numCommande
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, $numCommande): Response
     {
         $commandeLigne = new CommandeLigne();
         $form = $this->createForm(CommandeLigneType::class, $commandeLigne);
         $form->handleRequest($request);
+
+        if ($form->get('saveAndNew')->isClicked() && $form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commandeLigne);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('commande_ligne_new', ['numCommande' => $numCommande]);
+        }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -62,6 +72,7 @@ class CommandeLigneController extends AbstractController
         return $this->render('commande_ligne/new.html.twig', [
             'commande_ligne' => $commandeLigne,
             'form' => $form->createView(),
+            'num_commande' => $numCommande,
         ]);
     }
 

@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="edit d-flex flex-column">
         <div class="d-flex align-items-center justify-content-around">
-            <p class="editTitle text-center border-bottom">Création de commande</p>
+            <p class="editTitle text-center border-bottom">Création de commande (n° {{ num_commande }}) 2/2</p>
         </div>
         <form method="post" class="mt-2 d-flex flex-column justify-content-center">
 
@@ -16,7 +16,7 @@
                 {{ form_start(form) }}
                 <div class="col-4 align-self-center text-center mt-3">
                     <p class="mb-0">N° commande</p>
-                    {{ form_row(form.commande) }}
+                    {{ form_row(form.commande, {'is_selected': num_commande}) }}
                 </div>
                 <div class="col-4 align-self-center text-center mt-3">
                     <p class="mb-0">Gencod</p>
@@ -51,8 +51,10 @@
                     </div>
                 </div>
             </div>
-            <button class="register mt-3 mb-4 btn btn-lg">Enregistrer les données</button>
+            {#<button class="register mt-3 mb-4 btn btn-lg">Enregistrer les données et quitter</button>#}
+
             {{ form_end(form) }}
+
         </form>
 
         <div class="mt-4">

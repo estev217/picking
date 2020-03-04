@@ -19,7 +19,7 @@ class CommandeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numCommande', NumberType::class, [
+            ->add('numCommande', TextType::class, [
                 "label" => false,
             ])
             ->add('demandeur', TextType::class, [

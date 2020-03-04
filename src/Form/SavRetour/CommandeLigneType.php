@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,9 +25,14 @@ class CommandeLigneType extends AbstractType
             ->add('commande' , EntityType::class, [
                 "label" => false,
                 "class" => Commande::class,
-                "choice_label" => function (Commande $commande) {
+                /*"choice_label" => function (Commande $commande) {
                     return $commande->getNumCommande();
+                },*/
+                'query_builder' => function (CommandeRepository $qb) {
+                    return $qb->createQueryBuilder('c')
+                        ->orderBy('c.id', 'DESC');
                 },
+                "choice_label" => 'num_commande',
             ])
             ->add('gencod',TextType::class, [
                 "label" => false,
@@ -55,7 +61,12 @@ class CommandeLigneType extends AbstractType
                     'hour' => 'Heure', 'minute' => 'Minute',
                 ],
             ])
-        ;
+            ->add('save', SubmitType::class, [
+                'attr' => ['class' => 'save'],
+            ])
+            ->add('saveAndNew', SubmitType::class, [
+            'attr' => ['class' => 'save and new'],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
