@@ -16,8 +16,8 @@
                     <a href="{{ path('commande_ligne_add') }}">Alimenter une commande <i class="fas fa-plus"></i></a>
                 </div>
                 <div>
-                    <a href="{{ path('commande_all') }}">
-                        <button type="button" class="btn btn-primary on">Toutes les commandes <i class="fas fa-square"></i></button>
+                    <a href="{{ path('commande_index') }}">
+                        <button type="button" class="btn btn-primary off">Toutes les commandes <i class="fas fa-check-square"></i></button>
                     </a>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                             <a href="{{ path('commande_edit', {'id': commande.id}) }}" title="Modifier">
                                 <i class="fas fa-edit editButton"></i>
                             </a>
-                            <form method="post" action="{{ path('commande_delete', {'id': commande.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cette commande?');">
+                            <form method="post" action="{{ path('commande_delete_id', {'id': commande.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cette commande?');">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commande.id) }}">
                                 <button class="btn p-0"><i class="fas fa-trash-alt deleteButton" title="Supprimer"></i></button>

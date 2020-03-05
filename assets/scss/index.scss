@@ -51,3 +51,21 @@ tr {
         border-color: $lightBlue;
     }
 }
+
+.on {
+    background-color: $darkGreen;
+    border-color: $darkGreen;
+    &:hover{
+        background-color: $darkGreen;
+        border-color: $darkGreen;
+    }
+}
+
+.off {
+    background-color: $lightGreen;
+    border-color: $lightGreen;
+    &:hover{
+        background-color: $lightGreen;
+        border-color: $lightGreen;
+    }
+}

@@ -32,6 +32,20 @@ class CommandeController extends AbstractController
     }
 
     /**
+     * @Route("/all", name="commande_all", methods={"GET"})
+     * @param CommandeRepository $commandeRepository
+     * @param CommandeLigneRepository $commandeLigneRepository
+     * @return Response
+     */
+    public function all(CommandeRepository $commandeRepository, CommandeLigneRepository $commandeLigneRepository): Response
+    {
+        return $this->render('commande/all.html.twig', [
+            'commandes' => $commandeRepository->findAll(),
+            'commandelignes' => $commandeLigneRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/list", name="commande_list", methods={"GET"})
      * @param CommandeRepository $commandeRepository
      * @return Response
@@ -120,5 +134,22 @@ class CommandeController extends AbstractController
         }
 
         return $this->redirectToRoute('commande_index');
+    }
+
+    /**
+     * @Route("/delete/{id}", name="commande_delete_id", methods={"DELETE"})
+     * @param Request $request
+     * @param Commande $commande
+     * @return Response
+     */
+    public function deleteId(Request $request, Commande $commande): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($commande);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('commande_all');
     }
 }
