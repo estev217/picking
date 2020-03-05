@@ -4,6 +4,8 @@ namespace App\Controller\SavRetour;
 
 use App\Entity\SavRetour\CommandeLigne;
 use App\Entity\SavRetour\CommandeLigneSearch;
+use App\Form\SavRetour\CommandeLigneEditType;
+use App\Form\SavRetour\CommandeLigneNewType;
 use App\Form\SavRetour\CommandeLigneType;
 use App\Form\SavRetour\CommandeLigneSearchType;
 use App\Repository\SavRetour\CommandeLigneRepository;
@@ -20,6 +22,10 @@ class CommandeLigneController extends AbstractController
 {
     /**
      * @Route("/", name="commande_ligne_index", methods={"GET"})
+     * @param CommandeLigneRepository $commandeLigneRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
      */
     public function index(CommandeLigneRepository $commandeLigneRepository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -49,7 +55,7 @@ class CommandeLigneController extends AbstractController
     public function new(Request $request, $numCommande): Response
     {
         $commandeLigne = new CommandeLigne();
-        $form = $this->createForm(CommandeLigneType::class, $commandeLigne);
+        $form = $this->createForm(CommandeLigneNewType::class, $commandeLigne);
         $form->handleRequest($request);
 
         if ($form->get('saveAndNew')->isClicked() && $form->isSubmitted() && $form->isValid()) {
@@ -59,7 +65,6 @@ class CommandeLigneController extends AbstractController
 
             return $this->redirectToRoute('commande_ligne_new', ['numCommande' => $numCommande]);
         }
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -77,7 +82,42 @@ class CommandeLigneController extends AbstractController
     }
 
     /**
+     * @Route("/add", name="commande_ligne_add", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function add(Request $request): Response
+    {
+        $commandeLigne = new CommandeLigne();
+        $form = $this->createForm(CommandeLigneType::class, $commandeLigne);
+        $form->handleRequest($request);
+
+        if ($form->get('saveAndNew')->isClicked() && $form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commandeLigne);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('commande_ligne_add');
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commandeLigne);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('commande_index');
+        }
+
+        return $this->render('commande_ligne/add.html.twig', [
+            'commande_ligne' => $commandeLigne,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="commande_ligne_show", methods={"GET"})
+     * @param CommandeLigne $commandeLigne
+     * @return Response
      */
     public function show(CommandeLigne $commandeLigne): Response
     {
@@ -94,7 +134,7 @@ class CommandeLigneController extends AbstractController
      */
     public function edit(Request $request, CommandeLigne $commandeLigne): Response
     {
-        $form = $this->createForm(CommandeLigneType::class, $commandeLigne);
+        $form = $this->createForm(CommandeLigneEditType::class, $commandeLigne);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -111,6 +151,9 @@ class CommandeLigneController extends AbstractController
 
     /**
      * @Route("/{id}", name="commande_ligne_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param CommandeLigne $commandeLigne
+     * @return Response
      */
     public function delete(Request $request, CommandeLigne $commandeLigne): Response
     {

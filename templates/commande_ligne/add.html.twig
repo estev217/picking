@@ -2,19 +2,19 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}New CommandeLigne{% endblock %}
+{% block title %}Alimentation de commande{% endblock %}
 
 {% block body %}
 <div class="container-fluid">
     <div class="edit d-flex flex-column">
         <div class="d-flex align-items-center justify-content-around">
-            <p class="editTitle text-center border-bottom">Création de commande (n° {{ num_commande }}) <b>2/2</b></p>
+            <p class="editTitle text-center border-bottom">Alimentation de commande</p>
         </div>
         <form method="post" class="mt-2 d-flex flex-column justify-content-center">
 
             <div class="text-dark d-flex flex-column">
                 {{ form_start(form) }}
-                <div class="col-4 align-self-center text-center mt-3 num">
+                <div class="col-8 align-self-center text-center mt-3">
                     <p class="mb-0">N° commande</p>
                     {{ form_row(form.commande) }}
                 </div>

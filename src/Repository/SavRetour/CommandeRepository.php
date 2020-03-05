@@ -30,7 +30,14 @@ class CommandeRepository extends ServiceEntityRepository
 
     }
 
+    public function findAllByNum()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'DESC')
+            ->getQuery();
 
+        return $qb->execute();
+    }
 
     // /**
     //  * @return Commande[] Returns an array of Commande objects

@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="edit d-flex flex-column">
         <div class="d-flex align-items-center justify-content-around">
-            <p class="editTitle text-center border-bottom">Création de commande 1/2</p>
+            <p class="editTitle text-center border-bottom">Création de commande <b>1/2</b></p>
         </div>
         <form method="post" class="mt-2 d-flex flex-column justify-content-center">
 
@@ -43,7 +43,7 @@
                         <div>
                         {{ form_widget(form.date.date.month) }}
                         </div>
-                        <div>
+                        <div class="mr-3">
                         {{ form_widget(form.date.date.year) }}
                         </div>
                         <div>
@@ -59,12 +59,12 @@
                     {{ form_row(form.solde) }}
                 </div>
             </div>
-            <button class="register mt-3 mb-4 btn btn-lg">Enregistrer la commande</button>
+            <button class="register mt-4 mb-4 btn btn-lg">Enregistrer la commande</button>
             {{ form_end(form) }}
         </form>
 
         <div class="mt-4">
-            <a href="{{ path('commande_index') }}"><button class="back btn btn-lg text-white">Retour</button></a>
+            <a href="{{ path('commande_index') }}"><i class="navigationButton fas fa-arrow-circle-left fa-3x" title="Retour au menu principal"></i></a>
         </div>
 
     </div>

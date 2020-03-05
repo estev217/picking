@@ -1,13 +1,72 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Commande{% endblock %}
+{% block title %}Modification de commande{% endblock %}
 
 {% block body %}
-    <h1>Edit Commande</h1>
+    <div class="container-fluid">
+        <div class="edit d-flex flex-column">
+            <div class="d-flex align-items-center justify-content-around">
+                <p class="editTitle text-center border-bottom">Modification de la commande n° {{ commande.numCommande }}</p>
+            </div>
+            <form method="post" class="mt-2 d-flex flex-column justify-content-center">
 
-    {{ include('commande/_form.html.twig', {'button_label': 'Update'}) }}
+                <div class="text-dark d-flex flex-column">
+                    {{ form_start(form) }}
+                    <div class="d-flex flex-row justify-content-around">
+                        <div class="col-5 align-self-center text-center mt-3">
+                            <p class="mb-0">N° commande</p>
+                            {{ form_row(form.numCommande) }}
+                        </div>
+                        <div class="col-5 align-self-center text-center mt-3">
+                            <p class="mb-0">Demandeur</p>
+                            {{ form_row(form.demandeur) }}
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-around">
+                        <div class="col-5 align-self-center mt-3">
+                            <p class="text-center mb-0">Magasin cédant</p>
+                            {{ form_row(form.magasin_cedant) }}
+                        </div>
+                        <div class="col-5 align-self-center mt-3">
+                            <p class="text-center mb-0">Destination</p>
+                            {{ form_row(form.destination) }}
+                        </div>
+                    </div>
+                    <div class="align-self-center mt-3">
+                        <p class="text-center mb-0">Date</p>
+                        <div class="d-flex flex-row justify-content-between">
+                            <div>
+                                {{ form_widget(form.date.date.day) }}
+                            </div>
+                            <div>
+                                {{ form_widget(form.date.date.month) }}
+                            </div>
+                            <div class="mr-3">
+                                {{ form_widget(form.date.date.year) }}
+                            </div>
+                            <div>
+                                {{ form_widget(form.date.time.hour) }}
+                            </div>
+                            <div>
+                                {{ form_widget(form.date.time.minute) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="align-self-center text-center mt-4">
+                        <p class="text-center mb-0">Soldé ?</p>
+                        {{ form_row(form.solde) }}
+                    </div>
+                </div>
+                <button class="register mt-4 mb-4 btn btn-lg">Enregistrer la modification</button>
+                {{ form_end(form) }}
+            </form>
 
-    <a href="{{ path('commande_index') }}">back to list</a>
+            <div class="mt-4">
+                <a href="{{ path('commande_index') }}"><i class="navigationButton fas fa-arrow-circle-left fa-3x" title="Retour au menu principal"></i></a>
+            </div>
 
-    {{ include('commande/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

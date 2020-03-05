@@ -14,6 +14,17 @@ body {
     }
 }
 
+.registerAndContinue {
+    background-color: $white;
+    border-color: $lightGreen;
+    color: $lightGreen;
+    &:hover {
+        background-color: $lightGreen;
+        border-color: $lightGreen;
+        color: $white;
+    }
+}
+
 .back {
     background-color: $lightBlue;
     border-color: $lightBlue;

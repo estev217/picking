@@ -19,6 +19,9 @@ class CommandeController extends AbstractController
 {
     /**
      * @Route("/", name="commande_index", methods={"GET"})
+     * @param CommandeRepository $commandeRepository
+     * @param CommandeLigneRepository $commandeLigneRepository
+     * @return Response
      */
     public function index(CommandeRepository $commandeRepository, CommandeLigneRepository $commandeLigneRepository): Response
     {
@@ -30,16 +33,20 @@ class CommandeController extends AbstractController
 
     /**
      * @Route("/list", name="commande_list", methods={"GET"})
+     * @param CommandeRepository $commandeRepository
+     * @return Response
      */
     public function list(CommandeRepository $commandeRepository): Response
     {
         return $this->render('commande/list.html.twig', [
-            'commandes' => $commandeRepository->findAllWithNumCmd(),
+            'commandes' => $commandeRepository->findAllByNum(),
         ]);
     }
 
     /**
      * @Route("/new", name="commande_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -65,6 +72,8 @@ class CommandeController extends AbstractController
 
     /**
      * @Route("/{id}", name="commande_show", methods={"GET"})
+     * @param Commande $commande
+     * @return Response
      */
     public function show(Commande $commande): Response
     {
@@ -75,6 +84,9 @@ class CommandeController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="commande_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Commande $commande
+     * @return Response
      */
     public function edit(Request $request, Commande $commande): Response
     {
@@ -95,6 +107,9 @@ class CommandeController extends AbstractController
 
     /**
      * @Route("/{id}", name="commande_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Commande $commande
+     * @return Response
      */
     public function delete(Request $request, Commande $commande): Response
     {

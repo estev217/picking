@@ -4,6 +4,7 @@ namespace App\Form\SavRetour;
 
 use App\Entity\SavRetour\Commande;
 use App\Entity\SavRetour\CommandeLigne;
+use App\Repository\SavRetour\CommandeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -14,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CommandeLigneType extends AbstractType
+class CommandeLigneNewType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -22,10 +23,11 @@ class CommandeLigneType extends AbstractType
             ->add('commande' , EntityType::class, [
                 "label" => false,
                 "class" => Commande::class,
-                "choice_label" => function (Commande $commande) {
-                    return $commande->getNumCommande() . ' / ' . $commande->getDemandeur() . ' / ' .  $commande->getMagasinCedant() . ' / ' .  $commande->getDestination() ;
+                'query_builder' => function (CommandeRepository $qb) {
+                    return $qb->createQueryBuilder('c')
+                        ->orderBy('c.id', 'DESC');
                 },
-                "placeholder" => 'Choisir une commande'
+                "choice_label" => 'num_commande',
             ])
             ->add('gencod',TextType::class, [
                 "label" => false,
@@ -58,7 +60,7 @@ class CommandeLigneType extends AbstractType
                 'attr' => ['class' => 'save'],
             ])
             ->add('saveAndNew', SubmitType::class, [
-            'attr' => ['class' => 'save and new'],
+                'attr' => ['class' => 'save and new'],
             ]);
     }
 
