@@ -53,19 +53,30 @@ tr {
 }
 
 .on {
-    background-color: $darkGreen;
-    border-color: $darkGreen;
+    background-color: $darkBlue;
+    border-color: $darkBlue;
     &:hover{
-        background-color: $darkGreen;
-        border-color: $darkGreen;
+        background-color: $darkBlue;
+        border-color: $darkBlue;
     }
 }
 
 .off {
-    background-color: $lightGreen;
-    border-color: $lightGreen;
+    background-color: $lightBlue;
+    border-color: $lightBlue;
     &:hover{
-        background-color: $lightGreen;
-        border-color: $lightGreen;
+        background-color: $lightBlue;
+        border-color: $lightBlue;
     }
+}
+
+.link {
+    color: $lightBlue;
+    &:hover {
+        color: $darkBlue;
+    }
+}
+
+.dropdown-toggle {
+    color: $darkBlue;
 }
