@@ -34,6 +34,7 @@ class CommandeRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('c')
             ->orderBy('c.id', 'DESC')
+            ->where('c.solde != true')
             ->getQuery();
 
         return $qb->execute();
