@@ -46,6 +46,20 @@ class CommandeController extends AbstractController
     }
 
     /**
+     * @Route("/solde", name="commande_solde", methods={"GET"})
+     * @param CommandeRepository $commandeRepository
+     * @param CommandeLigneRepository $commandeLigneRepository
+     * @return Response
+     */
+    public function solde(CommandeRepository $commandeRepository, CommandeLigneRepository $commandeLigneRepository): Response
+    {
+        return $this->render('commande/solde.html.twig', [
+            'commandes' => $commandeRepository->findAll(),
+            'commandelignes' => $commandeLigneRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/list", name="commande_list", methods={"GET"})
      * @param CommandeRepository $commandeRepository
      * @return Response
@@ -151,5 +165,22 @@ class CommandeController extends AbstractController
         }
 
         return $this->redirectToRoute('commande_all');
+    }
+
+    /**
+     * @Route("/delete/solde/{id}", name="commande_delete_solde", methods={"DELETE"})
+     * @param Request $request
+     * @param Commande $commande
+     * @return Response
+     */
+    public function deleteSoldeId(Request $request, Commande $commande): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($commande);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('commande_solde');
     }
 }

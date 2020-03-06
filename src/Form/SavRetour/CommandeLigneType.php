@@ -4,6 +4,7 @@ namespace App\Form\SavRetour;
 
 use App\Entity\SavRetour\Commande;
 use App\Entity\SavRetour\CommandeLigne;
+use App\Repository\SavRetour\CommandeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -16,16 +17,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CommandeLigneType extends AbstractType
 {
+    private $commandeRepository;
+
+    public function __construct(CommandeRepository $commandeRepository)
+    {
+        $this->commandeRepository = $commandeRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('commande' , EntityType::class, [
                 "label" => false,
                 "class" => Commande::class,
-                "choice_label" => function (Commande $commande) {
-                    return $commande->getNumCommande() . ' / ' . $commande->getDemandeur() . ' / ' .  $commande->getMagasinCedant() . ' / ' .  $commande->getDestination() ;
-                },
-                "placeholder" => 'Choisir une commande'
+                'choice_label' => 'num_commande',
+                'choices' => $this->commandeRepository->findAllByNum(),
             ])
             ->add('gencod',TextType::class, [
                 "label" => false,
