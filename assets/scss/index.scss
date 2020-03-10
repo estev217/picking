@@ -94,6 +94,9 @@ tr {
         &:hover {
             color: $darkBlue;
         }
+        &:focus {
+            color: $darkBlue;
+        }
     }
 }
 
@@ -110,5 +113,13 @@ tr {
 }
 
 .over {
+    background-color: $lightGreen;
+}
+
+a:focus {
+    color: $darkBlue;
+}
+
+.search:focus {
     background-color: $lightBlue;
 }

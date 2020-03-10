@@ -1,11 +1,11 @@
-document.getElementById("commande").addEventListener("focusin", inFunction);
+document.getElementById("commande").addEventListener("focusin", insideFunction);
 
-function inFunction() {
+function insideFunction() {
     document.getElementById("commande").className = "over";
 }
 
-document.getElementById("commande").addEventListener("focusout", outFunction);
+document.getElementById("commande").addEventListener("focusout", outsideFunction);
 
-function outFunction() {
+function outsideFunction() {
     document.getElementById("commande").className = "";
 }
