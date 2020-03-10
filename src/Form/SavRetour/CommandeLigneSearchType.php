@@ -33,6 +33,7 @@ class CommandeLigneSearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'choices' => $this->commandeRepository->findAllWithNumCmd(),
+                'placeholder' => 'Toutes les commandes',
             ]);
     }
 
