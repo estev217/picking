@@ -19,7 +19,8 @@ class Picking
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=35)
+     * @ORM\ManyToOne(targetEntity="App\Entity\SavRetour\Commande", inversedBy="num_cmd")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $num_cmd;
 
@@ -48,12 +49,12 @@ class Picking
         return $this->id;
     }
 
-    public function getNumCmd(): ?string
+    public function getNumCmd(): ?Commande
     {
         return $this->num_cmd;
     }
 
-    public function setNumCmd(string $num_cmd): self
+    public function setNumCmd(?Commande $num_cmd): self
     {
         $this->num_cmd = $num_cmd;
 

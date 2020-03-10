@@ -150,6 +150,22 @@ class CommandeLigneController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/picking", name="picking", methods={"GET","POST"})
+     * @param Request $request
+     * @param CommandeLigne $commandeLigne
+     * @return Response
+     */
+    public function picking(Request $request, CommandeLigne $commandeLigne): Response
+    {
+
+
+        return $this->render('picking/picking.html.twig', [
+           'commande_ligne' => $commandeLigne,
+           'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="commande_ligne_delete", methods={"DELETE"})
      * @param Request $request
      * @param CommandeLigne $commandeLigne

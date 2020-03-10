@@ -5,7 +5,6 @@ namespace App\Form\SavRetour;
 use App\Entity\SavRetour\Commande;
 use App\Entity\SavRetour\CommandeLigne;
 use App\Entity\SavRetour\CommandeLigneSearch;
-use App\Repository\SavRetour\CommandeLigneRepository;
 use App\Repository\SavRetour\CommandeRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,27 +27,13 @@ class CommandeLigneSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('gencod', TextType::class, [
-                'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Gencod',
-                ]
-            ])
-            ->add('encours', ChoiceType::class, [
-                'label' => 'Encours',
-                'required' => false,
-                'choices' => [
-                    'encours' => true,
-                    'pas d\'encours' => false,
-                ]
-            ])
             ->add('commande', EntityType::class, [
                 'class' => Commande::class,
                 'choice_label' => 'num_commande',
                 'required' => false,
                 'label' => false,
                 'choices' => $this->commandeRepository->findAllWithNumCmd(),
+                'placeholder' => 'Toutes les commandes',
             ]);
     }
 

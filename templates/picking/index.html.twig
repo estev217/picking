@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Num_cmd</th>
+                <th>Id Num_cmd</th>
                 <th>Imei</th>
                 <th>Gencod</th>
                 <th>Date_heure</th>
@@ -21,7 +21,7 @@
         {% for picking in pickings %}
             <tr>
                 <td>{{ picking.id }}</td>
-                <td>{{ picking.numCmd }}</td>
+                <td>{{ picking.numCmd.id }}</td>
                 <td>{{ picking.imei }}</td>
                 <td>{{ picking.gencod }}</td>
                 <td>{{ picking.dateHeure ? picking.dateHeure|date('Y-m-d H:i:s') : '' }}</td>
