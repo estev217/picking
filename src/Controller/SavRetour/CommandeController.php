@@ -60,7 +60,7 @@ class CommandeController extends AbstractController
     }
 
     /**
-     * @Route("/list", name="commande_list", methods={"GET"})
+     * @Route("/list", name="commande_list", methods={"GET","POST"})
      * @param CommandeRepository $commandeRepository
      * @return Response
      */

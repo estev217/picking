@@ -1,8 +1,8 @@
 .index {
     background-color: $white;
-    width: 80vw;
+    width: 90vw;
     margin-top: 10vh;
-    margin-left: 10vw;
+    margin-left: 5vw;
     margin-bottom: 10vh;
     padding-left: 2%;
     padding-right: 2%;
@@ -79,4 +79,32 @@ tr {
 
 .dropdown-toggle {
     color: $darkBlue;
+}
+
+.pagination {
+    span {
+        margin-right: 2px;
+        margin-left: 2px;
+        color: $darkBlue;
+    }
+    a{
+        margin-right: 2px;
+        margin-left: 2px;
+        color: $lightBlue;
+        &:hover {
+            color: $darkBlue;
+        }
+    }
+}
+
+.search {
+    color: $white;
+    background-color: $darkBlue;
+    border-color: $darkBlue;
+    &:hover {
+        color: $white;
+        background-color: $lightBlue;
+        border-color: $lightBlue;
+    }
+
 }
