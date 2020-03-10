@@ -30,7 +30,7 @@ class PickingController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $picking = new \App\Entity\SavRetour\Picking();
+        $picking = new Picking();
         $form = $this->createForm(PickingType::class, $picking);
         $form->handleRequest($request);
 

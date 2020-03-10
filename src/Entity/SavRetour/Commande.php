@@ -22,6 +22,7 @@ class Commande
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\SavRetour\CommandeLigne", mappedBy="commande", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\SavRetour\Picking", mappedBy="num_cmd", orphanRemoval=true)
      */
     private $num_cmd;
 
