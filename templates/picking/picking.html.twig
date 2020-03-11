@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Picking{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="edit d-flex flex-column">
+        <div class="d-flex align-items-center justify-content-around">
+            <p class="editTitle text-center border-bottom">Picking SAV Retour</p>
+        </div>
+
+
+        <div class="d-flex align-items-center justify-content-center mt-4">
+            <a href="{{ path('commande_ligne_index') }}" class="navigationButton mx-2" title="Retour au choix de la commande">
+                <i class="fas fa-arrow-circle-left fa-2x"></i>
+            </a>
+            <a href="{{ path('app_logout') }}" class="navigationButton mx-2" title="Déconnexion">
+                <i class="fas fa-power-off fa-2x"></i>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

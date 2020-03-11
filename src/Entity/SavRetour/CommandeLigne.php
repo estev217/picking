@@ -44,6 +44,11 @@ class CommandeLigne
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $picking;
+
     public function __construct()
     {
         $this->date = new \DateTime();
@@ -110,6 +115,18 @@ class CommandeLigne
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getPicking(): ?int
+    {
+        return $this->picking;
+    }
+
+    public function setPicking(?int $picking): self
+    {
+        $this->picking = $picking;
 
         return $this;
     }

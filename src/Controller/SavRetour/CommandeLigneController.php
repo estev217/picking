@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/commande_ligne")
@@ -40,7 +41,7 @@ class CommandeLigneController extends AbstractController
             6
         );
 
-        return $this->render('commande_ligne/index.html.twig', [
+        return $this->render('picking/index.html.twig', [
             'commande_lignes' => $commandeLignes,
             'form' => $form->createView(),
         ]);
@@ -48,6 +49,7 @@ class CommandeLigneController extends AbstractController
 
     /**
      * @Route("/new/{numCommande}", name="commande_ligne_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param $numCommande
      * @return Response
@@ -83,6 +85,7 @@ class CommandeLigneController extends AbstractController
 
     /**
      * @Route("/add", name="commande_ligne_add", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return Response
      */
@@ -116,6 +119,7 @@ class CommandeLigneController extends AbstractController
 
     /**
      * @Route("/{id}", name="commande_ligne_show", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      * @param CommandeLigne $commandeLigne
      * @return Response
      */
@@ -128,6 +132,7 @@ class CommandeLigneController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="commande_ligne_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param CommandeLigne $commandeLigne
      * @return Response
@@ -161,12 +166,13 @@ class CommandeLigneController extends AbstractController
 
         return $this->render('picking/picking.html.twig', [
            'commande_ligne' => $commandeLigne,
-           'form' => $form->createView(),
+           //'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/{id}", name="commande_ligne_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param CommandeLigne $commandeLigne
      * @return Response

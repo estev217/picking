@@ -1,43 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Picking index{% endblock %}
+{% block title %}Picking{% endblock %}
 
 {% block body %}
-    <h1>Picking index</h1>
+<div class="container-fluid">
+    <div class="edit d-flex flex-column">
+        <div class="d-flex align-items-center justify-content-around">
+            <p class="editTitle text-center border-bottom">Picking - sélection de la commande</p>
+        </div>
+        {{ form_start(form) }}
+        <div class="d-flex container justify-content-center mt-4 mb-5">
+            <div class="align-self-center mr-3">{{ form_widget(form.commande) }}</div>
+            <div><button class="search btn">Chercher</button></div>
+        </div>
+        {{ form_end(form) }}
 
-    <table class="table">
-        <thead>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Num commande</th>
+                    <th>Gencod</th>
+                    <th>Quantité</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for commande_ligne in commande_lignes %}
+
             <tr>
-                <th>Id</th>
-                <th>Id Num_cmd</th>
-                <th>Imei</th>
-                <th>Gencod</th>
-                <th>Date_heure</th>
-                <th>Num_dossier</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for picking in pickings %}
-            <tr>
-                <td>{{ picking.id }}</td>
-                <td>{{ picking.numCmd.id }}</td>
-                <td>{{ picking.imei }}</td>
-                <td>{{ picking.gencod }}</td>
-                <td>{{ picking.dateHeure ? picking.dateHeure|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ picking.numDossier }}</td>
                 <td>
-                    <a href="{{ path('picking_show', {'id': picking.id}) }}">show</a>
-                    <a href="{{ path('picking_edit', {'id': picking.id}) }}">edit</a>
+                    <a href="{{ path('picking', {'id': commande_ligne.id}) }}" class="link">{{ commande_ligne.commande.numCommande }}</a>
                 </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                <td>{{ commande_ligne.gencod }}</td>
+                <td>{{ commande_ligne.picking ? : '0'}} / {{ commande_ligne.qte }}</td>
 
-    <a href="{{ path('picking_new') }}">Create new</a>
+            </tr>
+
+            {% else %}
+                <tr>
+                    <td colspan="7">Aucune commande à traiter</td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination d-flex justify-content-center">
+            {{ knp_pagination_render(commande_lignes) }}
+        </div>
+        <div class="d-flex align-items-center justify-content-center mt-4">
+            <a href="{{ path('app_logout') }}" class="navigationButton" title="Déconnexion">
+                <i class="fas fa-power-off fa-2x"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('over') }}
 {% endblock %}

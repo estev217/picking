@@ -74,6 +74,7 @@ tr {
     color: $lightBlue;
     &:hover {
         color: $darkBlue;
+        font-weight: bold;
     }
 }
 
@@ -118,6 +119,7 @@ tr {
 
 a:focus {
     color: $darkBlue;
+    font-weight: bold;
 }
 
 .search:focus {
