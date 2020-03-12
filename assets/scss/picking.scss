@@ -1,0 +1,30 @@
+.form {
+  visibility: hidden;
+}
+
+.alert {
+  background-color: $lightGreen;
+  padding: 0 0 0 0;
+}
+
+.pickingButton {
+  color: $darkBlue;
+  &:hover {
+    color: $lightBlue;
+  } &:focus {
+    color: $lightBlue;
+  }
+}
+
+.complete {
+  background-color: $lightGreen;
+  border-color: $lightGreen;
+
+  &:hover {
+    background-color: $darkGreen;
+    border-color: $darkGreen;
+  } &:focus {
+      background-color: $darkGreen;
+      border-color: $darkGreen;
+      }
+}

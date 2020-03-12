@@ -24,11 +24,12 @@
                 </tr>
             </thead>
             <tbody>
+
             {% for commande_ligne in commande_lignes %}
 
             <tr>
                 <td>
-                    <a href="{{ path('picking', {'id': commande_ligne.id}) }}" class="link">{{ commande_ligne.commande.numCommande }}</a>
+                    <a href="{{ path('picking', {'id': commande_ligne.id}) }}" class="link tab">{{ commande_ligne.commande.numCommande }}</a>
                 </td>
                 <td>{{ commande_ligne.gencod }}</td>
                 <td>{{ commande_ligne.picking ? : '0'}} / {{ commande_ligne.qte }}</td>

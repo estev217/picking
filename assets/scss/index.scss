@@ -74,7 +74,6 @@ tr {
     color: $lightBlue;
     &:hover {
         color: $darkBlue;
-        font-weight: bold;
     }
 }
 
@@ -117,7 +116,7 @@ tr {
     background-color: $lightGreen;
 }
 
-a:focus {
+.tab:focus {
     color: $darkBlue;
     font-weight: bold;
 }

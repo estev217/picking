@@ -4,6 +4,7 @@ namespace App\Controller\SavRetour;
 
 use App\Entity\SavRetour\CommandeLigne;
 use App\Entity\SavRetour\CommandeLigneSearch;
+use App\Form\SavRetour\PickingGencodType;
 use App\Form\SavRetour\CommandeLigneEditType;
 use App\Form\SavRetour\CommandeLigneNewType;
 use App\Form\SavRetour\CommandeLigneType;
@@ -162,11 +163,21 @@ class CommandeLigneController extends AbstractController
      */
     public function picking(Request $request, CommandeLigne $commandeLigne): Response
     {
+        $form = $this->createForm(PickingGencodType::class, $commandeLigne);
+        $form->handleRequest($request);
 
+        if ($form->get('saveAndNew')->isClicked() && $form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commandeLigne);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('picking', ['id' => $commandeLigne->getId()]);
+
+        }
 
         return $this->render('picking/picking.html.twig', [
            'commande_ligne' => $commandeLigne,
-           //'form' => $form->createView(),
+           'form' => $form->createView(),
         ]);
     }
 
