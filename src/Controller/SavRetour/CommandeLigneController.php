@@ -4,6 +4,7 @@ namespace App\Controller\SavRetour;
 
 use App\Entity\SavRetour\CommandeLigne;
 use App\Entity\SavRetour\CommandeLigneSearch;
+use App\Form\SavRetour\PickingGencodType;
 use App\Form\SavRetour\CommandeLigneEditType;
 use App\Form\SavRetour\CommandeLigneNewType;
 use App\Form\SavRetour\CommandeLigneType;
@@ -14,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/commande_ligne")
@@ -40,7 +42,7 @@ class CommandeLigneController extends AbstractController
             6
         );
 
-        return $this->render('commande_ligne/index.html.twig', [
+        return $this->render('picking/index.html.twig', [
             'commande_lignes' => $commandeLignes,
             'form' => $form->createView(),
         ]);
@@ -48,6 +50,7 @@ class CommandeLigneController extends AbstractController
 
     /**
      * @Route("/new/{numCommande}", name="commande_ligne_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param $numCommande
      * @return Response
@@ -83,6 +86,7 @@ class CommandeLigneController extends AbstractController
 
     /**
      * @Route("/add", name="commande_ligne_add", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return Response
      */
@@ -116,6 +120,7 @@ class CommandeLigneController extends AbstractController
 
     /**
      * @Route("/{id}", name="commande_ligne_show", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      * @param CommandeLigne $commandeLigne
      * @return Response
      */
@@ -128,6 +133,7 @@ class CommandeLigneController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="commande_ligne_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param CommandeLigne $commandeLigne
      * @return Response
@@ -157,7 +163,17 @@ class CommandeLigneController extends AbstractController
      */
     public function picking(Request $request, CommandeLigne $commandeLigne): Response
     {
+        $form = $this->createForm(PickingGencodType::class, $commandeLigne);
+        $form->handleRequest($request);
 
+        if ($form->get('saveAndNew')->isClicked() && $form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commandeLigne);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('picking', ['id' => $commandeLigne->getId()]);
+
+        }
 
         return $this->render('picking/picking.html.twig', [
            'commande_ligne' => $commandeLigne,
@@ -167,6 +183,7 @@ class CommandeLigneController extends AbstractController
 
     /**
      * @Route("/{id}", name="commande_ligne_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param CommandeLigne $commandeLigne
      * @return Response

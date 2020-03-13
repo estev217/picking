@@ -6,6 +6,7 @@ use App\Entity\SavRetour\Commande;
 use App\Form\SavRetour\CommandeType;
 use App\Repository\SavRetour\CommandeLigneRepository;
 use App\Repository\SavRetour\CommandeRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @IsGranted("ROLE_ADMIN")
  * @Route("/commande")
  */
 class CommandeController extends AbstractController

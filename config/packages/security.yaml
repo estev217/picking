@@ -4,7 +4,8 @@ security:
             algorithm: auto
         App\Entity\Operateur:
             algorithm: auto
-
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -38,6 +39,4 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/commande, roles: ROLE_ADMIN }
-        - { path: ^/commande_ligne, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
