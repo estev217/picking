@@ -24,19 +24,18 @@
                 <div class="d-flex flex-row justify-content-around py-1">
                     <div class="col-3 d-flex flex-column">
                         <h6 class="text-center"><b>Gencod</b></h6>
-                       <p class="mb-0 text-center">{{ commande_ligne.gencod }}</p>
+                       <p class="mb-0 text-center" id="gencod">{{ commande_ligne.gencod }}</p>
                     </div>
                     <div class="col-3 d-flex flex-column">
                         <h6 class="text-center"><b>Quantité</b></h6>
                         <p class="mb-0 text-center">{{ commande_ligne.picking ? : '0'}} / {{ commande_ligne.qte }}</p>
                     </div>
-                    <div class="col-6 align-self-center text-center">
-                        <label for="input"></label>
-                        <input type="text" id="input" autofocus>
+                    <div class="col-6 align-self-center text-center pt-2">
+                        {{ form_start(form) }}
+                        {{ form_row(form.gen, {'attr': {'autofocus': true}}) }}
                     </div>
                 </div>
                 <div class="form d-flex row">
-                    {{ form_start(form) }}
                     <div class="col-6">{{ form_row(form.picking) }}</div>
                     <div class="col-6">{{ form_row(form.saveAndNew) }}</div>
                     {{ form_end(form) }}
@@ -71,3 +70,6 @@
     </div>
 </div>
 {% endblock %}
+{%  block javascripts %}
+    {{ encore_entry_script_tags('picking') }}
+{%  endblock %}

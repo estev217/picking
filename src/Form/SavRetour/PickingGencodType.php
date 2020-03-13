@@ -18,6 +18,11 @@ class PickingGencodType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('gen', TextType::class, [
+                'required' => false,
+                'mapped' => false,
+                'label' => false,
+            ])
             ->add('picking', IntegerType::class, [
                 'label' => false,
             ])
