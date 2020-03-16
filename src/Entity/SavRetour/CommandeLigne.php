@@ -32,7 +32,7 @@ class CommandeLigne
     /**
      * @ORM\Column(type="integer")
      */
-    private $qte = 0;
+    private $qte;
 
     /**
      * @ORM\Column(type="boolean")
