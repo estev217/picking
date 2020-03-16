@@ -3,7 +3,6 @@
 namespace App\Entity\SavRetour;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ex table T_SAVRETOUR_COMMANDES
@@ -33,7 +32,7 @@ class CommandeLigne
     /**
      * @ORM\Column(type="integer")
      */
-    private $qte;
+    private $qte = 0;
 
     /**
      * @ORM\Column(type="boolean")
