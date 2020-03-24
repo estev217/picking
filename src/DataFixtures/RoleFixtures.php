@@ -17,10 +17,6 @@ class RoleFixtures extends Fixture
             'name' => 'Opérateur',
             'identifier' => Role::OPERATEUR
         ],
-        'inactif' => [
-            'name' => 'Inactif',
-            'identifier' => Role::INACTIF
-        ],
     ];
 
     public function load(ObjectManager $manager)

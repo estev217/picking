@@ -21,7 +21,7 @@ class OperateurFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $admin = new Operateur();
-        $admin->setUsername('efernandes');
+        $admin->setUsername('admin');
         $admin->setPassword($this->passwordEncoder->encodePassword(
             $admin,
             'admin'
@@ -32,7 +32,7 @@ class OperateurFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference('admin', $admin);
 
         $user = new Operateur();
-        $user->setUsername('plambda');
+        $user->setUsername('user');
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
             'user'
@@ -41,17 +41,6 @@ class OperateurFixtures extends Fixture implements DependentFixtureInterface
         $user->setRoles(['ROLE_OPERATEUR']);
         $manager->persist($user);
         $this->addReference('user', $user);
-
-        $inactive = new Operateur();
-        $inactive->setUsername('pinactive');
-        $inactive->setPassword($this->passwordEncoder->encodePassword(
-            $inactive,
-            'inactive'
-        ));
-        $inactive->setRole($this->getReference('role_2'));
-        $inactive->setRoles(['ROLE_INACTIF']);
-        $manager->persist($inactive);
-        $this->addReference('inactif', $inactive);
 
         $manager->flush();
     }
