@@ -1,12 +1,14 @@
-const input = document.getElementById("picking_gencod_saveAndNew");
-const gencod = document.getElementById("gencod");
-const number = document.getElementById("picking_gencod_picking");
-const myForm = document.getElementById("myForm");
+let input = document.getElementById("picking_gencod_gen");
+let gencod = document.getElementById("gencod");
+let number = document.getElementById("picking_gencod_picking");
+let button = document.getElementById("picking_gencod_saveAndNew");
 
-input.addEventListener("submit", submitFunction);
+input.addEventListener("change", valueFunction);
 
-function submitFunction() {
+function valueFunction() {
     if (input.value === gencod.innerText) {
-        number.value++;
+        number.value = parseInt(number.value) + 1;
+    } else {
+        alert("Mauvais gencod !");
     }
 }

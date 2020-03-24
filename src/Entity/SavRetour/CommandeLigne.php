@@ -3,7 +3,6 @@
 namespace App\Entity\SavRetour;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ex table T_SAVRETOUR_COMMANDES
