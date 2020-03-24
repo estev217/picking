@@ -60,6 +60,14 @@ class CommandeLigneType extends AbstractType
                     'hour' => 'Heure', 'minute' => 'Minute',
                 ],
             ])
+            ->add('picking', IntegerType::class, [
+                "label" => false,
+                "disabled" => true,
+                "attr" => [
+                    "value" => 0,
+                    "class" => 'hidden',
+                ]
+            ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'save'],
             ])
