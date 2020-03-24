@@ -47,7 +47,7 @@ class CommandeLigne
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $picking;
+    private $picking = 0;
 
     public function __construct()
     {
