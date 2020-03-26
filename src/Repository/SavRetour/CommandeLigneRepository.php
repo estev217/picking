@@ -25,7 +25,8 @@ class CommandeLigneRepository extends ServiceEntityRepository
     private function findVisibleQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('c')
-            ->orderBy('c.date', 'DESC');
+            ->orderBy('c.date', 'DESC')
+            ->where('c.picking != c.qte');
     }
 
     public function findAllVisibleQuery(CommandeLigneSearch $search): Query
