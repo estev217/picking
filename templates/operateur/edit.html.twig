@@ -1,13 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Operateur{% endblock %}
+{% block title %}Modification d'un utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Edit Operateur</h1>
 
-    {{ include('operateur/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('operateur_index') }}">back to list</a>
 
-    {{ include('operateur/_delete_form.html.twig') }}
+
+    <div class="container-fluid">
+        <div class="user d-flex flex-column">
+            <div class="d-flex align-items-center justify-content-around">
+                <p class="indexTitle text-center border-bottom">Modification d'un utilisateur</p>
+            </div>
+            <form class="d-flex flex-column justify-content-center">
+                {{ include('operateur/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+            </form>
+            <div class="d-flex align-items-center justify-content-center mt-4">
+                <a href="{{ path('operateur_index') }}" class="navigationButton mr-2" title="Retour">
+                    <i class="fas fa-arrow-circle-left fa-2x"></i>
+                </a>
+                <a href="{{ path('app_logout') }}" class="navigationButton ml-2" title="Déconnexion">
+                    <i class="fas fa-power-off fa-2x"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
