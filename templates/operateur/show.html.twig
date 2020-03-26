@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Operateur{% endblock %}
+
+{% block body %}
+    <h1>Operateur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ operateur.id }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ operateur.username }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ operateur.roles ? operateur.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ operateur.password }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('operateur_index') }}">back to list</a>
+
+    <a href="{{ path('operateur_edit', {'id': operateur.id}) }}">edit</a>
+
+    {{ include('operateur/_delete_form.html.twig') }}
+{% endblock %}
