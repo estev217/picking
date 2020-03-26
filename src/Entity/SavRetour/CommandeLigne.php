@@ -128,6 +128,10 @@ class CommandeLigne
     {
         $this->picking = $picking;
 
+        if ($this->picking === $this->qte) {
+            $this->getCommande()->setSolde(true);
+        }
+
         return $this;
     }
 }
