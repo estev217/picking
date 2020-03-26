@@ -8,7 +8,7 @@
             <div class="d-flex align-items-center justify-content-around">
                 <p class="homeTitle text-center border-bottom">Picking SAV Retour</p>
             </div>
-            <div class="text-center d-flex flex-row justify-content-around my-5">
+            <div class="text-center d-flex flex-row justify-content-around mt-5 mb-2">
                 {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('commande_index') }}" class="col-6">
                         <div class="square">
@@ -25,6 +25,17 @@
                         </p>
                     </div>
                 </a>
+            </div>
+            <div class="text-center d-flex flex-row justify-content-around mt-3 mb-5">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('operateur_index') }}" class="col-6">
+                        <div class="square">
+                            <p class="text-center text-white homeButton mb-0 py-3">
+                                Gestion des utilisateurs
+                            </p>
+                        </div>
+                    </a>
+                {% endif %}
             </div>
             <div class="d-flex align-items-center justify-content-around mb-4">
                 <a href="{{ path('app_logout') }}" class="navigationButton" title="Déconnexion">
