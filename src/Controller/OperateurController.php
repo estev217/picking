@@ -79,17 +79,17 @@ class OperateurController extends AbstractController
      */
     public function edit(Request $request, Operateur $operateur, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $form = $this->createForm(RegistrationFormType::class, $operateur);
+        $form = $this->createForm(OperateurType::class, $operateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $operateur->setPassword(
+            /*$operateur->setPassword(
                 $passwordEncoder->encodePassword(
                     $operateur,
                     $form->get('plainPassword')->getData()
                 )
-            );
+            );*/
 
             if ($operateur->getRole()->getIdentifier() === "admin") {
                 $operateur->setRoles(["ROLE_ADMIN"]);
