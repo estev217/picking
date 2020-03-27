@@ -45,6 +45,12 @@ class OperateurController extends AbstractController
                 )
             );
 
+            if ($user->getRole()->getIdentifier() === "admin") {
+                $user->setRoles(["ROLE_ADMIN"]);
+            } else {
+                $user->setRoles(["ROLE_OPERATEUR"]);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -71,12 +77,20 @@ class OperateurController extends AbstractController
     /**
      * @Route("/{id}/edit", name="operateur_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Operateur $operateur): Response
+    public function edit(Request $request, Operateur $operateur, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $form = $this->createForm(OperateurType::class, $operateur);
+        $form = $this->createForm(RegistrationFormType::class, $operateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $operateur->setPassword(
+                $passwordEncoder->encodePassword(
+                    $operateur,
+                    $form->get('password')->getData()
+                )
+            );
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('operateur_index');
