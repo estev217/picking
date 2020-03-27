@@ -87,9 +87,15 @@ class OperateurController extends AbstractController
             $operateur->setPassword(
                 $passwordEncoder->encodePassword(
                     $operateur,
-                    $form->get('password')->getData()
+                    $form->get('plainPassword')->getData()
                 )
             );
+
+            if ($operateur->getRole()->getIdentifier() === "admin") {
+                $operateur->setRoles(["ROLE_ADMIN"]);
+            } else {
+                $operateur->setRoles(["ROLE_OPERATEUR"]);
+            }
 
             $this->getDoctrine()->getManager()->flush();
 
