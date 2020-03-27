@@ -20,13 +20,14 @@
                     </div>
                     <div class="col-8 align-self-center d-flex flex-row justify-content-start mt-5">
                         <div class="col-5 d-flex justify-content-end align-self-center">Rôle</div>
-                        <div class="col-7">
+                        <div class="col-7 d-flex flex-column-reverse">
                             {{ form_row(form.role) }}
                         </div>
                     </div>
                     <div class="col-8 align-self-center d-flex flex-row justify-content-around mt-5">
-                        <div class="col-12 align-items-center text-center d-flex flex-row justify-content-center">
-                            {{ form_row(form.password) }}
+                        <div class="col-5 d-flex justify-content-end align-self-center">Mot de passe</div>
+                        <div class="col-7">
+                            {{ form_row(form.plainPassword) }}
                         </div>
                     </div>
                 </div>
