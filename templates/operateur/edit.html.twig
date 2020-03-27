@@ -4,16 +4,38 @@
 
 {% block body %}
 
-
-
-
     <div class="container-fluid">
         <div class="user d-flex flex-column">
             <div class="d-flex align-items-center justify-content-around">
                 <p class="indexTitle text-center border-bottom">Modification d'un utilisateur</p>
             </div>
-            <form class="d-flex flex-column justify-content-center">
-                {{ include('operateur/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+            <form method="post" class="mt-2 d-flex flex-column justify-content-center">
+
+                <div class="text-dark d-flex flex-column">
+                    {{ form_start(form) }}
+                    <div class="col-8 align-self-center d-flex flex-row justify-content-start mt-3">
+                        <div class="col-5 d-flex justify-content-end align-self-center">Nom d'utilisateur</div>
+                        <div class="col-7">
+                        {{ form_row(form.username) }}
+                        </div>
+                    </div>
+                    <div class="col-8 align-self-center d-flex flex-row justify-content-start mt-5">
+                        <div class="col-5 d-flex justify-content-end align-self-center">Rôle</div>
+                        <div class="col-7">
+                        {{ form_row(form.role) }}
+                        </div>
+                    </div>
+                    <div class="col-8 align-self-center d-flex flex-row justify-content-start mt-5">
+                        <div class="col-5 d-flex justify-content-end align-self-center">Mot de passe</div>
+                        <div class="col-7">
+                        {{ form_row(form.password, {"attr": {"value": operateur.password}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 align-self-center d-flex justify-content-center mt-4">
+                    <button class="register mt-3 mb-4 btn btn-lg">Enregistrer les modifications</button>
+                </div>
+                {{ form_end(form) }}
             </form>
             <div class="d-flex align-items-center justify-content-center mt-4">
                 <a href="{{ path('operateur_index') }}" class="navigationButton mr-2" title="Retour">
