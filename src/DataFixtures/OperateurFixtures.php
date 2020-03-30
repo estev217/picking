@@ -35,7 +35,7 @@ class OperateurFixtures extends Fixture implements DependentFixtureInterface
         $user->setUsername('user');
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            'user'
+            'user1'
         ));
         $user->setRole($this->getReference('role_1'));
         $user->setRoles(['ROLE_OPERATEUR']);
