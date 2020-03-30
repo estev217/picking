@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Operateur;
+use App\Form\OperateurEditType;
 use App\Form\OperateurType;
 use App\Form\RegistrationFormType;
 use App\Repository\OperateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -84,13 +86,6 @@ class OperateurController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            /*$operateur->setPassword(
-                $passwordEncoder->encodePassword(
-                    $operateur,
-                    $form->get('plainPassword')->getData()
-                )
-            );*/
-
             if ($operateur->getRole()->getIdentifier() === "admin") {
                 $operateur->setRoles(["ROLE_ADMIN"]);
             } else {
@@ -99,10 +94,54 @@ class OperateurController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                'primary',
+                'Profil mis à jour !'
+            );
+
             return $this->redirectToRoute('operateur_index');
         }
 
         return $this->render('operateur/edit.html.twig', [
+            'operateur' => $operateur,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit/password", name="operateur_edit_password", methods={"GET","POST"})
+     * @param Request $request
+     * @param Operateur $operateur
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @return Response
+     */
+    public function editPassword(Request $request, Operateur $operateur, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $form = $this->createForm(OperateurEditType::class, $operateur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $operateur->setPassword(
+                $passwordEncoder->encodePassword(
+                    $operateur,
+                    $form->get('password')->getData()
+                )
+            );
+
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'primary',
+                'Mot de passe mis à jour !'
+            );
+
+            return new RedirectResponse($this->generateUrl('operateur_edit', [
+                'id' => $operateur->getId(),
+            ]));
+        }
+
+        return $this->render('operateur/password.html.twig', [
             'operateur' => $operateur,
             'form' => $form->createView(),
         ]);

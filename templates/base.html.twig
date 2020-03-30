@@ -11,7 +11,17 @@
     <header>
         {% block header %}{% endblock %}
     </header>
-        {% block main %} {% endblock %}
+        {% block main %}
+            <div class="flash row justify-content-center mt-4">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{label}}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            </div>
+        {% endblock %}
         {% block body %}{% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}

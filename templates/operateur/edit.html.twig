@@ -25,12 +25,11 @@
                         {{ form_row(form.role) }}
                         </div>
                     </div>
-                    {#<div class="col-8 align-self-center d-flex flex-row justify-content-start mt-5">
-                        <div class="col-5 d-flex justify-content-end align-self-center">Mot de passe</div>
-                        <div class="col-7">
-                        {{ form_row(form.plainPassword) }}
+                    <div class="col-12 align-self-center d-flex flex-row justify-content-center mt-5">
+                        <div class="d-flex justify-content-end align-self-center">
+                            <a href="{{ path('operateur_edit_password', {'id': operateur.id}) }}" class="link">Modifier le mot de passe</a>
                         </div>
-                    </div>#}
+                    </div>
                 </div>
                 <div class="col-6 align-self-center d-flex justify-content-center mt-4">
                     <button class="register mt-3 mb-4 btn btn-lg">Enregistrer les modifications</button>
