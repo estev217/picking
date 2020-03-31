@@ -6,12 +6,16 @@ use App\Entity\SavRetour\Commande;
 use App\Form\SavRetour\CommandeType;
 use App\Repository\SavRetour\CommandeLigneRepository;
 use App\Repository\SavRetour\CommandeRepository;
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -71,6 +75,35 @@ class CommandeController extends AbstractController
         return $this->render('commande/list.html.twig', [
             'commandes' => $commandeRepository->findAllByNum(),
         ]);
+    }
+
+    /**
+     * @Route("/upload", name="commande_upload", methods={"GET","POST"})
+     * @throws Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    public function upload():Response
+    {
+        $file_mimes = ['text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+
+        if(isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mimes)) {
+
+            $arr_file = explode('.', $_FILES['file']['name']);
+            $extension = end($arr_file);
+
+            if('csv' == $extension) {
+                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+            } else {
+                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            }
+
+            $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
+
+            $sheetData = $spreadsheet->getActiveSheet()->toArray();
+            var_dump($sheetData);
+        }
+
+        return $this->render('commande/upload.html.twig');
     }
 
     /**
