@@ -82,7 +82,7 @@ class CommandeController extends AbstractController
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function upload():Response
+    public function upload(Request $request):Response
     {
         $file_mimes = ['text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
 
@@ -100,7 +100,54 @@ class CommandeController extends AbstractController
             $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
 
             $sheetData = $spreadsheet->getActiveSheet()->toArray();
-            var_dump($sheetData);
+
+
+            $commande = new Commande();
+            $form = $this->createForm(CommandeType::class, $commande);
+            $form->handleRequest($request);
+
+            $numCommande = $sheetData[5][2];
+            $demandeur = $sheetData[4][2];
+            $magasinCedant = $sheetData[9][2];
+            $destination = $sheetData[8][2];
+            $date = $sheetData[3][2];
+
+            if ($numCommande != null){
+                $commande->setNumCommande($numCommande);
+                if ($demandeur != null) {
+                    $commande->setDemandeur($demandeur);
+                } else {
+                    $commande->setDemandeur("N.C.");
+                }
+                if ($magasinCedant != null) {
+                    $commande->setMagasinCedant($magasinCedant);
+                } else {
+                    $commande->setMagasinCedant("N.C.");
+                }
+                if ($destination != null) {
+                    $commande->setDestination($destination);
+                } else {
+                    $commande->setDestination("N.C.");
+                }
+                if ($date != null) {
+                    $dateTime = date('Y-m-d H:i:s', strtotime($date));
+                    $commande->setDate($dateTime);
+                } else {
+                    $commande->setDate(date('Y-m-d H:i:s'));
+                }
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($commande);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('commande_index');
+
+            } else {
+                $this->addFlash(
+                    'primary',
+                    'Numéro de commande non valide ou introuvable !'
+                );
+            }
+
         }
 
         return $this->render('commande/upload.html.twig');
