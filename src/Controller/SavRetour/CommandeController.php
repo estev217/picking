@@ -3,6 +3,8 @@
 namespace App\Controller\SavRetour;
 
 use App\Entity\SavRetour\Commande;
+use App\Entity\SavRetour\CommandeLigne;
+use App\Form\SavRetour\CommandeLigneNewType;
 use App\Form\SavRetour\CommandeType;
 use App\Repository\SavRetour\CommandeLigneRepository;
 use App\Repository\SavRetour\CommandeRepository;
@@ -138,9 +140,36 @@ class CommandeController extends AbstractController
                     $today = new \DateTime(date('Y-m-d H:i:s'));
                     $commande->setDate($today);
                 }
+
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($commande);
+
+                $i = 12;
+                while ($sheetData[$i][1] != null) {
+                    $commandeLigne = new CommandeLigne();
+                    $secondForm = $this->createForm(CommandeLigneNewType::class, $commandeLigne);
+                    $secondForm->handleRequest($request);
+
+                    $commandeLigne->setCommande($commande);
+                    $gencod = $sheetData[$i][1];
+                    $commandeLigne->setGencod($gencod);
+                    $quantity = $sheetData[$i][4];
+                    $commandeLigne->setQte($quantity);
+                    $today = new \DateTime(date('Y-m-d H:i:s'));
+                    $commandeLigne->setDate($today);
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($commandeLigne);
+
+                    $i++;
+                }
+
                 $entityManager->flush();
+
+                $this->addFlash(
+                    'primary',
+                    'Commande créée !'
+                );
 
                 return $this->redirectToRoute('commande_index');
 
