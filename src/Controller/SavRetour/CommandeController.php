@@ -81,6 +81,7 @@ class CommandeController extends AbstractController
      * @Route("/upload", name="commande_upload", methods={"GET","POST"})
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \Exception
      */
     public function upload(Request $request):Response
     {
@@ -110,7 +111,7 @@ class CommandeController extends AbstractController
             $demandeur = $sheetData[4][2];
             $magasinCedant = $sheetData[9][2];
             $destination = $sheetData[8][2];
-            $date = $sheetData[3][2];
+            $excelDate = $sheetData[3][2];
 
             if ($numCommande != null){
                 $commande->setNumCommande($numCommande);
@@ -129,11 +130,13 @@ class CommandeController extends AbstractController
                 } else {
                     $commande->setDestination("N.C.");
                 }
-                if ($date != null) {
-                    $dateTime = date('Y-m-d H:i:s', strtotime($date));
+                if ($excelDate != null) {
+                    $formatedDate = date('Y-m-d H:i:s', strtotime($excelDate));
+                    $dateTime = new \DateTime($formatedDate);
                     $commande->setDate($dateTime);
                 } else {
-                    $commande->setDate(date('Y-m-d H:i:s'));
+                    $today = new \DateTime(date('Y-m-d H:i:s'));
+                    $commande->setDate($today);
                 }
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($commande);
