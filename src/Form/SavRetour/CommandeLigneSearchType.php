@@ -27,6 +27,13 @@ class CommandeLigneSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('gencod', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Recherche par gencod'
+                ]
+            ])
             ->add('commande', EntityType::class, [
                 'class' => Commande::class,
                 'choice_label' => 'num_commande',
