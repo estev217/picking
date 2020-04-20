@@ -39,7 +39,7 @@ class CommandeLigneController extends AbstractController
         $commandeLignes = $paginator->paginate(
             $commandeLigneRepository->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
-            6
+            8
         );
 
         return $this->render('picking/index.html.twig', [

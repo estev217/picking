@@ -8,13 +8,19 @@
             <div class="d-flex align-items-center justify-content-around">
                 <p class="indexTitle text-center border-bottom">Création / modification commandes de transfert SAV Retour</p>
             </div>
-            <div class="d-flex flex-row ml-1 mb-3">
-                <div class="align-self-center mr-5">
+            <div class="d-flex flex-row justify-content-center mb-3 mt-3">
+                <div class="align-self-center mx-3">
+                    <a href="{{ path('commande_upload') }}" class="link">Intégrer une commande par fichier Excel <i class="fas fa-plus"></i></a>
+                </div>
+                <div class="align-self-center mx-3">
                     <a href="{{ path('commande_new') }}" class="link">Créer une nouvelle commande <i class="fas fa-plus"></i></a>
                 </div>
-                <div class="align-self-center mr-5">
+                <div class="align-self-center mx-3">
                     <a href="{{ path('commande_ligne_add') }}" class="link">Alimenter une commande <i class="fas fa-plus"></i></a>
                 </div>
+            </div>
+
+            <div class="d-flex flex-row ml-1 mb-3 mt-3">
                 <div class="align-self-center mr-5">
                     <a href="{{ path('commande_all') }}">
                         <button type="button" class="btn btn-primary on">Toutes les commandes<i class="fas fa-square ml-2"></i></button>
