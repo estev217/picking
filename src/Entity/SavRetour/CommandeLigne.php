@@ -37,7 +37,7 @@ class CommandeLigne
     /**
      * @ORM\Column(type="boolean")
      */
-    private $encours = false;
+    private $encours = true;
 
     /**
      * @ORM\Column(type="datetime")
@@ -129,7 +129,18 @@ class CommandeLigne
         $this->picking = $picking;
 
         if ($this->picking === $this->qte) {
-            $this->getCommande()->setSolde(true);
+            $this->setEncours(false);
+
+            $commandes = $this->getCommande()->getNumCmd()->toArray();
+
+            foreach ($commandes as $gencod) {
+                if ($gencod->getEncours() === true) {
+                    $this->getCommande()->setSolde(false);
+                    break;
+                } else {
+                    $this->getCommande()->setSolde(true);
+                }
+            }
         }
 
         return $this;
