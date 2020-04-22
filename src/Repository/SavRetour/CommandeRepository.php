@@ -30,6 +30,18 @@ class CommandeRepository extends ServiceEntityRepository
 
     }
 
+    public function findAllWithNumCmdSold()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->innerJoin('c.num_cmd', 'cn' )
+            ->addSelect('cn')
+            ->where('c.solde != true')
+            ->getQuery();
+
+        return $qb->execute();
+
+    }
+
     public function findAllByNum()
     {
         $qb = $this->createQueryBuilder('c')
