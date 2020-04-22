@@ -42,7 +42,6 @@ Encore
      * and one CSS file (e.g. app.scss) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    .addEntry('date', './assets/js/date.js')
     .addEntry('over', './assets/js/over.js')
     .addEntry('picking', './assets/js/picking.js')
     //.addEntry('page2', './assets/js/page2.js')

@@ -68,18 +68,6 @@ class CommandeController extends AbstractController
     }
 
     /**
-     * @Route("/list", name="commande_list", methods={"GET","POST"})
-     * @param CommandeRepository $commandeRepository
-     * @return Response
-     */
-    public function list(CommandeRepository $commandeRepository): Response
-    {
-        return $this->render('commande/list.html.twig', [
-            'commandes' => $commandeRepository->findAllByNum(),
-        ]);
-    }
-
-    /**
      * @Route("/upload", name="commande_upload", methods={"GET","POST"})
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Exception
@@ -209,18 +197,6 @@ class CommandeController extends AbstractController
         return $this->render('commande/new.html.twig', [
             'commande' => $commande,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="commande_show", methods={"GET"})
-     * @param Commande $commande
-     * @return Response
-     */
-    public function show(Commande $commande): Response
-    {
-        return $this->render('commande/show.html.twig', [
-            'commande' => $commande,
         ]);
     }
 

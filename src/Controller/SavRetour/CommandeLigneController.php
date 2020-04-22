@@ -119,19 +119,6 @@ class CommandeLigneController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="commande_ligne_show", methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     * @param CommandeLigne $commandeLigne
-     * @return Response
-     */
-    public function show(CommandeLigne $commandeLigne): Response
-    {
-        return $this->render('commande_ligne/show.html.twig', [
-            'commande_ligne' => $commandeLigne,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="commande_ligne_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
