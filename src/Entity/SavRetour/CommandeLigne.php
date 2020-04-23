@@ -3,6 +3,7 @@
 namespace App\Entity\SavRetour;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ex table T_SAVRETOUR_COMMANDES
@@ -37,7 +38,7 @@ class CommandeLigne
     /**
      * @ORM\Column(type="boolean")
      */
-    private $encours = false;
+    private $encours = true;
 
     /**
      * @ORM\Column(type="datetime")
@@ -46,6 +47,7 @@ class CommandeLigne
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\LessThanOrEqual(propertyPath="qte", message="Doit être inférieur ou égal à la quantité totale")
      */
     private $picking = 0;
 
@@ -129,7 +131,18 @@ class CommandeLigne
         $this->picking = $picking;
 
         if ($this->picking === $this->qte) {
-            $this->getCommande()->setSolde(true);
+            $this->setEncours(false);
+
+            $commandes = $this->getCommande()->getNumCmd()->toArray();
+
+            foreach ($commandes as $gencod) {
+                if ($gencod->getEncours() === true) {
+                    $this->getCommande()->setSolde(false);
+                    break;
+                } else {
+                    $this->getCommande()->setSolde(true);
+                }
+            }
         }
 
         return $this;

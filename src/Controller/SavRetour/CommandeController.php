@@ -20,7 +20,6 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 /**
- * @IsGranted("ROLE_ADMIN")
  * @Route("/commande")
  */
 class CommandeController extends AbstractController
@@ -64,18 +63,6 @@ class CommandeController extends AbstractController
         return $this->render('commande/solde.html.twig', [
             'commandes' => $commandeRepository->findAll(),
             'commandelignes' => $commandeLigneRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/list", name="commande_list", methods={"GET","POST"})
-     * @param CommandeRepository $commandeRepository
-     * @return Response
-     */
-    public function list(CommandeRepository $commandeRepository): Response
-    {
-        return $this->render('commande/list.html.twig', [
-            'commandes' => $commandeRepository->findAllByNum(),
         ]);
     }
 
@@ -202,6 +189,11 @@ class CommandeController extends AbstractController
             $entityManager->persist($commande);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Commande créée !'
+            );
+
             return new RedirectResponse($this->generateUrl('commande_ligne_new', [
                 'numCommande' => $numCommande]));
         }
@@ -209,18 +201,6 @@ class CommandeController extends AbstractController
         return $this->render('commande/new.html.twig', [
             'commande' => $commande,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="commande_show", methods={"GET"})
-     * @param Commande $commande
-     * @return Response
-     */
-    public function show(Commande $commande): Response
-    {
-        return $this->render('commande/show.html.twig', [
-            'commande' => $commande,
         ]);
     }
 
@@ -237,6 +217,11 @@ class CommandeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'primary',
+                'Commande modifiée !'
+            );
 
             return $this->redirectToRoute('commande_index');
         }

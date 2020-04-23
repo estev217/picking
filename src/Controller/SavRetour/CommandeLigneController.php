@@ -24,6 +24,7 @@ class CommandeLigneController extends AbstractController
 {
     /**
      * @Route("/", name="commande_ligne_index", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      * @param CommandeLigneRepository $commandeLigneRepository
      * @param PaginatorInterface $paginator
      * @param Request $request
@@ -74,6 +75,11 @@ class CommandeLigneController extends AbstractController
             $entityManager->persist($commandeLigne);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Commande alimentée !'
+            );
+
             return $this->redirectToRoute('commande_index');
         }
 
@@ -109,25 +115,17 @@ class CommandeLigneController extends AbstractController
             $entityManager->persist($commandeLigne);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Commande alimentée !'
+            );
+
             return $this->redirectToRoute('commande_index');
         }
 
         return $this->render('commande_ligne/add.html.twig', [
             'commande_ligne' => $commandeLigne,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="commande_ligne_show", methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     * @param CommandeLigne $commandeLigne
-     * @return Response
-     */
-    public function show(CommandeLigne $commandeLigne): Response
-    {
-        return $this->render('commande_ligne/show.html.twig', [
-            'commande_ligne' => $commandeLigne,
         ]);
     }
 
@@ -145,6 +143,11 @@ class CommandeLigneController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'primary',
+                'Commande modifiée !'
+            );
 
             return $this->redirectToRoute('commande_index');
         }
