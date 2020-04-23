@@ -39,6 +39,13 @@ class CommandeLigneEditType extends AbstractType
                     'step' => 1
                 ]
             ])
+            ->add('picking', IntegerType::class, [
+                "label" => false,
+                "attr" => [
+                    'min' => 0,
+                    'step' => 1
+                ]
+            ])
             ->add('encours', ChoiceType::class, [
                 "label" => false,
                 'placeholder' => false,

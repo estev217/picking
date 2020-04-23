@@ -190,6 +190,11 @@ class CommandeController extends AbstractController
             $entityManager->persist($commande);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Commande créée !'
+            );
+
             return new RedirectResponse($this->generateUrl('commande_ligne_new', [
                 'numCommande' => $numCommande]));
         }
@@ -213,6 +218,11 @@ class CommandeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'primary',
+                'Commande modifiée !'
+            );
 
             return $this->redirectToRoute('commande_index');
         }

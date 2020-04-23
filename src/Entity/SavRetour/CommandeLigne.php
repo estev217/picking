@@ -3,6 +3,7 @@
 namespace App\Entity\SavRetour;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ex table T_SAVRETOUR_COMMANDES
@@ -46,6 +47,7 @@ class CommandeLigne
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\LessThanOrEqual(propertyPath="qte", message="Doit être inférieur ou égal à la quantité totale")
      */
     private $picking = 0;
 

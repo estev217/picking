@@ -74,6 +74,11 @@ class CommandeLigneController extends AbstractController
             $entityManager->persist($commandeLigne);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Commande alimentée !'
+            );
+
             return $this->redirectToRoute('commande_index');
         }
 
@@ -109,6 +114,11 @@ class CommandeLigneController extends AbstractController
             $entityManager->persist($commandeLigne);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Commande alimentée !'
+            );
+
             return $this->redirectToRoute('commande_index');
         }
 
@@ -132,6 +142,11 @@ class CommandeLigneController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'primary',
+                'Commande modifiée !'
+            );
 
             return $this->redirectToRoute('commande_index');
         }
