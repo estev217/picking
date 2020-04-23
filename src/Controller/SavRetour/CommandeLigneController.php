@@ -24,6 +24,7 @@ class CommandeLigneController extends AbstractController
 {
     /**
      * @Route("/", name="commande_ligne_index", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      * @param CommandeLigneRepository $commandeLigneRepository
      * @param PaginatorInterface $paginator
      * @param Request $request
