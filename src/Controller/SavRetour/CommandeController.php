@@ -20,7 +20,6 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 /**
- * @IsGranted("ROLE_ADMIN")
  * @Route("/commande")
  */
 class CommandeController extends AbstractController
